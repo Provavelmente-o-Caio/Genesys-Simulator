@@ -116,11 +116,11 @@ void Label::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 
 // could be overriden
 
-bool Label::_check(std::string* errorMessage) {
+bool Label::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll &= (_enteringLabelComponent != nullptr);
 	if (!resultAll) {
-		*errorMessage += "Entering Label Component was not defined";
+		errorMessage += "Entering Label Component was not defined";
 	}
 	return resultAll;
 }

@@ -117,7 +117,7 @@ void Clone::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 
 //ParserChangesInformation* DummyElement::_getParserChangesInformation() {}
 
-bool Clone::_check(std::string* errorMessage) {
+bool Clone::_check(std::string& errorMessage) {
 	return _parentModel->checkExpression(_numClonesExpression, "Num clones", errorMessage);
 }
 

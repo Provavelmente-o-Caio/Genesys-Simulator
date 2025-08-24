@@ -152,7 +152,7 @@ bool Entity::_loadInstance(PersistenceRecord *fields) {
 void Entity::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 }
 
-bool Entity::_check(std::string* errorMessage) {
-	*errorMessage += "";
+bool Entity::_check(std::string& errorMessage) {
+	errorMessage += "";
 	return true;
 }

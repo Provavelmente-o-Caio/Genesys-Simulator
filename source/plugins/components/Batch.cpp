@@ -307,7 +307,7 @@ void Batch::_createInternalAndAttachedData() {
 	}
 }
 
-bool Batch::_check(std::string * errorMessage) {
+bool Batch::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	ModelDataManager* elements = _parentModel->getDataManager();
 	if (_attributeName != "") {

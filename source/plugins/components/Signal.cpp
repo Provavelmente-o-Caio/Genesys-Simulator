@@ -99,10 +99,10 @@ void Signal::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 
 // protected should override
 
-bool Signal::_check(std::string* errorMessage) {
+bool Signal::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	// @TODO: not implemented yet
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }
 

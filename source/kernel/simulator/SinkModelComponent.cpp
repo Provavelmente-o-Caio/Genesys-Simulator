@@ -29,8 +29,8 @@ void SinkModelComponent::_saveInstance(PersistenceRecord *fields, bool saveDefau
 	ModelComponent::_saveInstance(fields, saveDefaultValues);
 }
 
-bool SinkModelComponent::_check(std::string* errorMessage) {
+bool SinkModelComponent::_check(std::string& errorMessage) {
 	// @TODO: To implement!
-	*errorMessage += "";
+	errorMessage += "";
 	return true;
 }

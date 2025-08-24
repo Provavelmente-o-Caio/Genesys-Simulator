@@ -64,7 +64,7 @@ public:
 	 * \param errorMessage
 	 * \return
 	 */
-	bool check(std::string datadefinitionTypename, ModelDataDefinition* anElement, std::string expressionName, std::string* errorMessage);
+    bool check(std::string datadefinitionTypename, ModelDataDefinition* anElement, std::string expressionName, std::string& errorMessage);
 	/*!
 	 * \brief check
 	 * \param datadefinitionTypename
@@ -74,7 +74,7 @@ public:
 	 * \param errorMessage
 	 * \return
 	 */
-	bool check(std::string datadefinitionTypename, std::string elementName, std::string expressionName, bool mandatory, std::string* errorMessage);
+    bool check(std::string datadefinitionTypename, std::string elementName, std::string expressionName, bool mandatory, std::string& errorMessage);
 	/*!
 	 * \brief clear
 	 */

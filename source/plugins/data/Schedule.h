@@ -26,7 +26,7 @@ public:
 
 public:
 
-	SchedulableItem(std::string expression, double duration, SchedulableItem::Rule = SchedulableItem::Rule::IGNORE) {
+    SchedulableItem(std::string expression, double duration, SchedulableItem::Rule rule = SchedulableItem::Rule::IGNORE) {
 		this->expression = expression;
 		this->duration = duration;
 		this->rule = rule;
@@ -84,7 +84,7 @@ protected: // must be overriden
 	virtual bool _loadInstance(PersistenceRecord *fields);
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected: // could be overriden by derived classes
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	/*! This method returns all changes in the parser that are needed by plugins of this ModelDatas. When connecting a new plugin, ParserChangesInformation are used to change parser source code, whch is after compiled and dinamically linked to to simulator kernel to reflect the changes */
 	virtual ParserChangesInformation* _getParserChangesInformation();
 	virtual void _initBetweenReplications();

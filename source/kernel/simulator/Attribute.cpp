@@ -59,7 +59,7 @@ void Attribute::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues)
 	ModelDataDefinition::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Attribute::_check(std::string* errorMessage) {
-	*errorMessage += "";
+bool Attribute::_check(std::string& errorMessage) {
+    errorMessage += "";
 	return true;
 }

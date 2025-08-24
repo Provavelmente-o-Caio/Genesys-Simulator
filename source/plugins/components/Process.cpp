@@ -278,12 +278,12 @@ void Process::_createInternalAndAttachedData() {
 	}
 }
 
-bool Process::_check(std::string* errorMessage) {
+bool Process::_check(std::string& errorMessage) {
 	bool resultAll = true;
 
 	resultAll &= ModelComponent::Check(_seize);
 	resultAll &= ModelComponent::Check(_delay);
 	resultAll &= ModelComponent::Check(_release);
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }

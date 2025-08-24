@@ -212,11 +212,11 @@ void Failure::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	//@TODO not implemented yet
 }
 
-bool Failure::_check(std::string* errorMessage) {
+bool Failure::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	//@TODO not implemented yet
 	// resultAll |= ...
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }
 

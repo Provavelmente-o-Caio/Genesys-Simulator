@@ -100,7 +100,7 @@ void Formula::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	ModelDataDefinition::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Formula::_check(std::string* errorMessage) {
+bool Formula::_check(std::string& errorMessage) {
 	bool res, resAll = true;
 	//unsigned int i = 0;
 	for (std::map<std::string, std::string>::iterator it = _formulaExpressions->begin(); it != _formulaExpressions->end(); it++) {

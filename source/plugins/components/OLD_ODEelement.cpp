@@ -114,7 +114,7 @@ void OLD_ODEelement::_saveInstance(PersistenceRecord *fields, bool saveDefaultVa
 	return ModelDataDefinition::_saveInstance(fields, saveDefaultValues);
 }
 
-bool OLD_ODEelement::_check(std::string* errorMessage) {
+bool OLD_ODEelement::_check(std::string& errorMessage) {
 	bool result = true;
 	unsigned short i = 0;
 	ODEfunction* func;

@@ -293,7 +293,7 @@ void Route::_createInternalAndAttachedData() {
 	_attachedDataInsert("Label", _label);
 }
 
-bool Route::_check(std::string* errorMessage) {
+bool Route::_check(std::string& errorMessage) {
 	// include StatisticsCollector needed in EntityType
 	std::list<ModelDataDefinition*>* enttypes = _parentModel->getDataManager()->getDataDefinitionList(Util::TypeOf<EntityType>())->list();
 	for (ModelDataDefinition* modeldatum : *enttypes) {
@@ -310,7 +310,7 @@ bool Route::_check(std::string* errorMessage) {
 			if (resultAll) {
 				resultAll &= _station->getEnterIntoStationComponent() != nullptr;
 				if (!resultAll) {
-					errorMessage->append("Station has no component to enter into it");
+                    errorMessage.append("Station has no component to enter into it");
 				}
 			}
 		}
@@ -320,7 +320,7 @@ bool Route::_check(std::string* errorMessage) {
 		if (resultAll) {
 			resultAll &= _label->getEnterIntoLabelComponent() != nullptr;
 			if (!resultAll) {
-				errorMessage->append("Label has no component to enter into it");
+                errorMessage.append("Label has no component to enter into it");
 			}
 		}
 	}

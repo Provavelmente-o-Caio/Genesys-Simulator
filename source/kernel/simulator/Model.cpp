@@ -151,18 +151,18 @@ double Model::parseExpression(const std::string expression) {
 	}
 }
 
-bool Model::checkExpression(const std::string expression, const std::string expressionName, std::string* errorMessage) {
-	bool result;
+bool Model::checkExpression(const std::string expression, const std::string expressionName, std::string& errorMessage) {
+    bool result = false;
 	getTracer()->trace("Checking expression \""+expression+"\"", TraceManager::Level::L8_detailed);
 	try {
-		parseExpression(expression, &result, errorMessage);
+        parseExpression(expression, result, errorMessage);
 	} catch (const std::exception& e) {
 		result = false;
 	}
 	if (!result) {
 		std::string msg = "Expression \""+expression+"\" for '"+expressionName+"' is incorrect. ";
 		this->_traceManager->trace(msg, TraceManager::Level::L3_errorRecover);
-		errorMessage->append(msg);
+        errorMessage.append(msg);
 	}
 	return result;
 }
@@ -177,7 +177,7 @@ void Model::checkReferencesToDataDefinitions(std::string expression, std::map<st
 	wrapper.setRegisterReferedDataElements(false);
 }
 
-double Model::parseExpression(const std::string expression, bool* success, std::string* errorMessage) {
+double Model::parseExpression(const std::string expression, bool& success, std::string& errorMessage) {
 	double value = _parser->parse(expression, success, errorMessage);
 	//yy::location l/
 	//std::string m;

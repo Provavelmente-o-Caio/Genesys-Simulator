@@ -77,7 +77,7 @@ public:
 	unsigned int getNumberOfQueues() const;
 protected: // virtual
 	//virtual void _initBetweenReplications();
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	virtual void _createInternalAndAttachedData();
 private: // methods
 private: // attributes 1:1

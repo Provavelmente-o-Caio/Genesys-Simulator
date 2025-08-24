@@ -161,10 +161,10 @@ void MarkovChain::_saveInstance(PersistenceRecord *fields, bool saveDefaultValue
 	// @TODO: not implemented yet
 }
 
-bool MarkovChain::_check(std::string* errorMessage) {
+bool MarkovChain::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	// @TODO: not implemented yet
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }
 

@@ -114,7 +114,7 @@ public: // public static methods
 	/*! This class method takes an instance of a ModelDataDefinition, invokes the protected method _saveInstance() of that instance and retorns a map of filds (name=value) that can be saved on a file (or somewhere else)*/
 	static void SaveInstance(PersistenceRecord *fields, ModelDataDefinition* modeldatum);
 	/*! This class method takes an instance of a ModelDataDefinition and invokes the private method_check() method of that instance, which checks itself */
-	static bool Check(ModelDataDefinition* modeldatum, std::string* errorMessage);
+	static bool Check(ModelDataDefinition* modeldatum, std::string& errorMessage);
 	/*! This class method is responsible for invoking the protected method _check() of the instance modeldatum, which creates any internal ModelDataDefinition (such as internelElements) or even other external needed ModelDatas, such as attributes or variables */
 	static void CreateInternalData(ModelDataDefinition* modeldatum);
 	/* This class methood is responsible for invoking the protected method _initBetweenReplication(), which clears all statistics, attributes, counters and other stuff before starting a new repliction */
@@ -145,7 +145,7 @@ protected: //! must be overriden by derived classes
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 
 protected: //! could be overriden by derived classes
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	/*! This method returns all changes in the parser that are needed by plugins of this ModelDatas. When connecting a new plugin, ParserChangesInformation are used to change parser source code, whch is after compiled and dinamically linked to to simulator kernel to reflect the changes */
 	virtual ParserChangesInformation* _getParserChangesInformation();
 	virtual void _initBetweenReplications();

@@ -182,7 +182,7 @@ void Write::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	}
 }
 
-bool Write::_check(std::string* errorMessage) {
+bool Write::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	/*
 	WriteText* msgElem;

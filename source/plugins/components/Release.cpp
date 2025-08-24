@@ -270,7 +270,7 @@ void Release::_createInternalAndAttachedData() {
 	}
 }
 
-bool Release::_check(std::string* errorMessage) {
+bool Release::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	int i = 0;
 	for (SeizableItem* seizable : * _releaseRequests->list()) {

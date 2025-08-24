@@ -113,7 +113,7 @@ void EntityGroup::_createInternalAndAttachedData() {
 	}
 }
 
-bool EntityGroup::_check(std::string * errorMessage) {
-	*errorMessage += "";
+bool EntityGroup::_check(std::string& errorMessage) {
+	errorMessage += "";
 	return true;
 }

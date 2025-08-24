@@ -226,13 +226,13 @@ void GenesysShell::cmdParser() {
 	}
 	const std::string expression = parameters;
 	bool success = false;
-	string* errorMessage = new string();
-	cout << "Evaluating expression \""<<expression<<"\""<<endl;
-	double res = model->parseExpression(expression, &success, errorMessage);
+    string errorMessage = "";
+    cout << "Evaluating expression \"" << expression << "\"" << endl;
+    double res = model->parseExpression(expression, success, errorMessage);
 	if (success) {
 		cout << "Expression evaluates to "<<res<<endl;
 	} else {
-		cout << "Syntax error: "<<*errorMessage<<endl;
+        cout << "Syntax error: "<<errorMessage<<endl;
 	}
 }
 

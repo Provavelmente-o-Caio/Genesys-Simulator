@@ -81,7 +81,7 @@ void Sequence::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) 
 	}
 }
 
-bool Sequence::_check(std::string* errorMessage) {
+bool Sequence::_check(std::string& errorMessage) {
 	_attachedAttributesInsert({"Entity.Sequence", "Entity.SequenceStep"});
 	int i = 0;
 	for (SequenceStep* step : *_steps->list()) {
@@ -89,7 +89,7 @@ bool Sequence::_check(std::string* errorMessage) {
 		_attachedDataInsert("StepLabel" + Util::StrIndex(i), step->getLabel());
 		i++;
 	}
-	*errorMessage += "";
+	errorMessage += "";
 	return true;
 }
 

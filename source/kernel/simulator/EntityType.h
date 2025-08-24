@@ -59,7 +59,7 @@ public: //get
 protected: // must be overriden 
 	virtual bool _loadInstance(PersistenceRecord *fields);
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	virtual void _initBetweenReplications();
 	virtual void _createInternalAndAttachedData();
 private:

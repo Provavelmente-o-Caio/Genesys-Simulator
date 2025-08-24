@@ -28,8 +28,8 @@ public:
 	virtual ~ParserDefaultImpl2() = default;
 public:
 	virtual double parse(const std::string expression) override; // may throw exception
-	virtual double parse(const std::string expression, bool* success, std::string* errorMessage) override;
-	virtual std::string* getErrorMessage() override;
+    virtual double parse(const std::string expression, bool& success, std::string& errorMessage) override;
+    virtual std::string getErrorMessage() override;
 	virtual void setSampler(Sampler_if* _sampler) override;
 	virtual Sampler_if* getSampler() const override;
 	virtual genesyspp_driver getParser() const override;

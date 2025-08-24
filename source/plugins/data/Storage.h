@@ -55,7 +55,7 @@ protected: // must be overriden
 	virtual bool _loadInstance(PersistenceRecord *fields);
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected: // could be overriden 
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	virtual ParserChangesInformation* _getParserChangesInformation();
 private:
 

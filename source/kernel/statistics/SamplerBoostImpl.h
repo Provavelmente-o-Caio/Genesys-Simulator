@@ -29,16 +29,24 @@ public:
 	virtual ~SamplerBoostImpl() = default;
 public: // probability distributions
 	virtual double random();
-	virtual double sampleBeta(double alpha, double beta, double infLimit, double supLimit);
-	virtual double sampleDiscrete(double acumProb, double value, ...);
-	virtual double sampleErlang(double mean, int M);
-	virtual double sampleExponential(double mean);
-	virtual double sampleGamma(double mean, double alpha);
-	virtual double sampleLogNormal(double mean, double stddev);
-	virtual double sampleNormal(double mean, double stddev);
-	virtual double sampleTriangular(double min, double mode, double max);
-	virtual double sampleUniform(double min, double max);
-	virtual double sampleWeibull(double alpha, double scale);
+    virtual double sampleBeta(double alpha, double beta, double infLimit, double supLimit);
+    virtual double sampleBeta(double alpha, double beta);
+    virtual double sampleErlang(double mean, int M, double offset = 0.0);
+    virtual double sampleExponential(double mean, double offset = 0.0);
+    //virtual double sampleGamma(double mean, double alpha, double offset=0.0);
+    virtual double sampleGamma(double alpha, double beta, double offset = 0.0);
+    virtual double sampleGumbell(double mode, double scale);
+    virtual double sampleLogNormal(double mean, double stddev, double offset = 0.0);
+    virtual double sampleNormal(double mean, double stddev);
+    virtual double sampleTriangular(double min, double mode, double max);
+    virtual double sampleUniform(double min, double max);
+    virtual double sampleWeibull(double alpha, double scale);
+public: // discrete probability distributions
+    virtual double sampleBinomial(int trials, double p);
+    virtual double sampleBernoulli(double p);
+    virtual double sampleDiscrete(double prob, double value, ...);
+    virtual double sampleDiscrete(double *prob, double *value, int size);
+    virtual double sampleGeometric(double p);
 public:
 	void reset(); //!< reinitialize seed and other parameters so (pseudo) random number sequence will be generated again.
 public:

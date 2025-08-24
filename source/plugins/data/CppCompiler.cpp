@@ -165,7 +165,7 @@ void CppCompiler::_saveInstance(PersistenceRecord *fields, bool saveDefaultValue
 
 // could be overriden
 
-bool CppCompiler::_check(std::string* errorMessage) {
+bool CppCompiler::_check(std::string& errorMessage) {
 	//@ TODO check if compiler command exists
 	return true;
 }
@@ -204,17 +204,17 @@ CppCompiler::CompilationResult CppCompiler::compileToStaticLibrary() {
 	return result;
 }
 
-bool CppCompiler::loadLibrary(std::string* errorMessage) {
+bool CppCompiler::loadLibrary(std::string& errorMessage) {
 	try {
 		_dynamicLibraryHandle = dlopen(_outputFilename.c_str(), RTLD_LAZY);
 	} catch (const std::exception& e) {
 		if (dlerror() != NULL)
-			*errorMessage += dlerror();
-		*errorMessage += e.what();
+			errorMessage += dlerror();
+		errorMessage += e.what();
 		return false;
 	}
 	if (_dynamicLibraryHandle == nullptr) {
-		*errorMessage += dlerror();
+		errorMessage += dlerror();
 	}
 	_libraryLoaded = _dynamicLibraryHandle != nullptr;
 	return _libraryLoaded;

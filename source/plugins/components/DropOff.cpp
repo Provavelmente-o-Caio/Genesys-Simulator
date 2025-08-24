@@ -62,10 +62,10 @@ void DropOff::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	// @TODO: not implemented yet
 }
 
-bool DropOff::_check(std::string* errorMessage) {
+bool DropOff::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	// @TODO: not implemented yet
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }
 

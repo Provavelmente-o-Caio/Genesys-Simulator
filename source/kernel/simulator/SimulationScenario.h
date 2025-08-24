@@ -27,7 +27,7 @@ public:
 	SimulationScenario();
 	virtual ~SimulationScenario() = default;
 public: // results
-	bool startSimulation(Simulator *sim, std::string* errorMessage);
+	bool startSimulation(Simulator *sim, std::string& errorMessage);
 	std::list<std::pair<std::string, double>*>* getResponseValues() const; /*!< The final result of the simulationScenario */
 	std::list<std::pair<std::string, double>*>* getControlValues() const;
 	double getResponseValue(const std::string& responseName);

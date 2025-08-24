@@ -140,7 +140,7 @@ protected: // protected must override
 	virtual bool _loadInstance(PersistenceRecord *fields);
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected: // protected could override
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	virtual void _createInternalAndAttachedData();
 	virtual void _initBetweenReplications();
 

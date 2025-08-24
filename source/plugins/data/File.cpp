@@ -66,11 +66,11 @@ void File::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	//@TODO not implemented yet
 }
 
-bool File::_check(std::string* errorMessage) {
+bool File::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	//@TODO not implemented yet
 	// resultAll |= ...
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }
 

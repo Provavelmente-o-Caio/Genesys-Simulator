@@ -35,12 +35,12 @@ double ParserDefaultImpl2::parse(const std::string expression) { // may throw ex
 	}
 }
 
-std::string* ParserDefaultImpl2::getErrorMessage() {
-	std::string* errorMessage = new std::string(_wrapper.getErrorMessage());
+std::string ParserDefaultImpl2::getErrorMessage() {
+    std::string errorMessage = _wrapper.getErrorMessage();
 	return errorMessage;
 }
 
-double ParserDefaultImpl2::parse(const std::string expression, bool* success, std::string* errorMessage) {
+double ParserDefaultImpl2::parse(const std::string expression, bool& success, std::string& errorMessage) {
 	_wrapper.setThrowsException(true); //false);
 	int res = -1;
 	try {
@@ -49,11 +49,11 @@ double ParserDefaultImpl2::parse(const std::string expression, bool* success, st
 		res = -1;
 	}
 	if (res == 0) {
-		*success = true;
+        success = true;
 		return _wrapper.getResult();
 	} else {
-		*success = false;
-		*errorMessage = _wrapper.getErrorMessage();
+        success = false;
+        errorMessage = _wrapper.getErrorMessage();
 		return _wrapper.getResult();
 	}
 }

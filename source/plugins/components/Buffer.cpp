@@ -148,7 +148,7 @@ void Buffer::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 
 //ParserChangesInformation* DummyElement::_getParserChangesInformation() {}
 
-bool Buffer::_check(std::string* errorMessage) {
+bool Buffer::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	//...
 	return resultAll;

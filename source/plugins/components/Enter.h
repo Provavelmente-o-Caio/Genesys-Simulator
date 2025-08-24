@@ -116,7 +116,7 @@ protected:
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected:
 	//virtual void _initBetweenReplications();
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	virtual void _createInternalAndAttachedData();
 private: // association
     Station* _station = nullptr;

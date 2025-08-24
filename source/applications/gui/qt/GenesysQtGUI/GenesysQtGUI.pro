@@ -4,7 +4,19 @@ QT += designer
 greaterThan(QT_MAJOR_VERSION, 6): QT += widgets
 CONFIG += c++14
 
-QMAKE_CXXFLAGS += -pedantic -Wno-unused -Wmissing-field-initializers
+
+# Remova o pacote padrão de warnings do qmake
+CONFIG -= warn_on
+# Recrie manualmente o conjunto de warnings, deixando o -Wno no final
+#QMAKE_CXXFLAGS += -Wall -Wextra -Wpedantic -Wno-unused-variable -Wno-unused-parameter -Wno-error=unused-parameter
+#QMAKE_CXXFLAGS += -pedantic -Wno-unused -Wmissing-field-initializers
+# Silenciar "unused parameter" de forma global
+#QMAKE_CXXFLAGS += -Wno-unused-parameter
+# Se o projeto trata warnings como erro em algum kit:
+#QMAKE_CXXFLAGS += -Wno-error=unused-parameter
+# Específico por compilador (opcional, mas robusto):
+#QMAKE_CXXFLAGS_CLANG += -Wno-unused-parameter -Wno-error=unused-parameter
+#QMAKE_CXXFLAGS_GCC   += -Wno-unused-parameter -Wno-error=unused-parameter
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -221,6 +233,7 @@ SOURCES += \
     ../../../terminal/examples/teaching/Rectifier.cpp \
     codeeditor/CodeEditor.cpp \
     mainwindow_controller_on.cpp \
+    mainwindow_modelrepresentations.cpp \
     mainwindow_scene.cpp \
     mainwindow_simulator.cpp \
     propertyeditor/DataComponentProperty.cpp \
@@ -267,7 +280,8 @@ SOURCES += \
     propertyeditor/qtpropertybrowser/qtpropertybrowserutils.cpp \
     propertyeditor/qtpropertybrowser/qtpropertymanager.cpp \
     propertyeditor/qtpropertybrowser/qttreepropertybrowser.cpp \
-    propertyeditor/qtpropertybrowser/qtvariantproperty.cpp
+    propertyeditor/qtpropertybrowser/qtvariantproperty.cpp \
+    systempreferences.cpp
 
 HEADERS += \
     ../../../../kernel/TraitsKernel.h \
@@ -606,7 +620,8 @@ HEADERS += \
     propertyeditor/qtpropertybrowser/qtpropertybrowserutils_p.h \
     propertyeditor/qtpropertybrowser/qtpropertymanager.h \
     propertyeditor/qtpropertybrowser/qttreepropertybrowser.h \
-    propertyeditor/qtpropertybrowser/qtvariantproperty.h
+    propertyeditor/qtpropertybrowser/qtvariantproperty.h \
+    systempreferences.h
 
 FORMS += \
     dialogs/DialogTimerConfigure.ui \

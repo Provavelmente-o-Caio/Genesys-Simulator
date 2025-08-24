@@ -163,8 +163,8 @@ void Variable::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) 
 	}
 }
 
-bool Variable::_check(std::string* errorMessage) {
-	*errorMessage += "";
+bool Variable::_check(std::string& errorMessage) {
+	errorMessage += "";
 	return true;
 }
 

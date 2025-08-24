@@ -116,7 +116,7 @@ void Schedule::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) 
 // protected virtual -- could be overriden 
 //
 
-bool Schedule::_check(std::string* errorMessage) {
+bool Schedule::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	//resultAll &= _someString != "";
 	//resultAll &= _someUint > 0;

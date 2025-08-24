@@ -130,7 +130,7 @@ void Assign::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	}
 }
 
-bool Assign::_check(std::string* errorMessage) {
+bool Assign::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	int i = 0;
 	for (Assignment* let : *_assignments->list()) {

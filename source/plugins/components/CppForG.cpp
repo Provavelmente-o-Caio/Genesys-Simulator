@@ -131,7 +131,7 @@ void CppForG::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	// @TODO: not implemented yet
 }
 
-bool CppForG::_check(std::string* errorMessage) {
+bool CppForG::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	CppCompiler::CompilationResult result;
 	std::string name = this->getName();
@@ -184,7 +184,7 @@ extern \"C\" void initBetweenReplications" + "(Model* model) {\n\
 		outfile.close();
 	} catch (const std::exception& e) {
 		resultAll = false;
-		*errorMessage += "Error saving source code to compile: ";// + e.what();
+		errorMessage += "Error saving source code to compile: ";// + e.what();
 	}
 	// if saved, compile
 	if (resultAll) {
@@ -197,18 +197,18 @@ extern \"C\" void initBetweenReplications" + "(Model* model) {\n\
 		if (!result.success) {
 			resultAll = false;
 			if (result.compilationErrOutput != "")
-				*errorMessage += result.compilationErrOutput;
+				errorMessage += result.compilationErrOutput;
 			else
-				*errorMessage += result.compilationStdOutput;
+				errorMessage += result.compilationStdOutput;
 		}
 	}
 	// if compiled, load dynamic library
 	if (resultAll) {
 		_cppCompiler->unloadLibrary();
 		trace("Loading dynamic library \"" + _outputFilename + "\"");
-		resultAll = _cppCompiler->loadLibrary(errorMessage);
+        resultAll = _cppCompiler->loadLibrary(errorMessage);
 		if (!resultAll) {
-			*errorMessage += ". Error loading dynamic library.";
+			errorMessage += ". Error loading dynamic library.";
 		}
 	}
 	// if dynamic library loaded, then vinculate pointers to loaded functions
@@ -220,7 +220,7 @@ extern \"C\" void initBetweenReplications" + "(Model* model) {\n\
 			initBetweenReplications_SharedLibHandler = (initBetweenReplications_t)dlsym(handle, "initBetweenReplications");
 		} catch (...) {
 			resultAll = false;
-			*errorMessage += "Error vinculating library functions";
+			errorMessage += "Error vinculating library functions";
 		}
 	} else {
 		dispatchEvent_SharedLibHandler = nullptr;

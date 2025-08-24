@@ -146,7 +146,7 @@ bool ModelCheckerDefaultImpl1::checkSymbols() {
 				std::string elementType;
 				bool result;
 				ModelDataDefinition* modeldatum;
-				std::string* errorMessage = new std::string();
+                std::string errorMessage = "";
 				std::list<std::string>* elementTypes = _model->getDataManager()->getDataDefinitionClassnames();
 				for (std::list<std::string>::iterator typeIt = elementTypes->begin(); typeIt != elementTypes->end(); typeIt++) {
 					elementType = (*typeIt);
@@ -158,10 +158,10 @@ bool ModelCheckerDefaultImpl1::checkSymbols() {
 						Util::IncIndent();
 						{
 							try {
-								result = modeldatum->Check((*it), errorMessage);
+                                result = modeldatum->Check((*it), errorMessage);
 								res &= result;
 								if (!result) {
-									_model->getTracer()->traceError("Error: Checking has failed with message '" + *errorMessage + "'");
+                                    _model->getTracer()->traceError("Error: Checking has failed with message '" + errorMessage + "'");
 								}
 							} catch (const std::exception& e) {
 								_model->getTracer()->traceError("Error verifying component " + modeldatum->show(), e);

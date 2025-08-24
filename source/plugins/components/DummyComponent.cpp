@@ -115,7 +115,7 @@ void DummyComponent::_onDispatchEvent(Entity* entity, unsigned int inputPortNumb
 //
 
 /*
-bool DummyComponent::_check(std::string* errorMessage) {
+bool DummyComponent::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll &= _someString != "";
 	resultAll &= _someUint > 0;

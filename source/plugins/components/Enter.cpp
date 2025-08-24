@@ -128,7 +128,7 @@ void Enter::_createInternalAndAttachedData() {
 	_attachedDataInsert("Station", _station);
 }
 
-bool Enter::_check(std::string* errorMessage) {
+bool Enter::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	if (_station != nullptr) {
 		_station->setEnterIntoStationComponent(this);

@@ -116,7 +116,7 @@ void Set::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
     }
 }
 
-bool Set::_check(std::string* errorMessage) {
+bool Set::_check(std::string& errorMessage) {
     bool resultAll = true;
     if (_elementSet->size() > 0) {
         std::string typeOfFirstElement = _elementSet->front()->getClassname();
@@ -124,14 +124,14 @@ bool Set::_check(std::string* errorMessage) {
             _setOfType = typeOfFirstElement;
         } else if (_setOfType != typeOfFirstElement) {
             resultAll = false;
-            *errorMessage += "Set is of type \"" + _setOfType + "\" and first modeldatum is of type \"" + typeOfFirstElement + "\"";
+            errorMessage += "Set is of type \"" + _setOfType + "\" and first modeldatum is of type \"" + typeOfFirstElement + "\"";
         }
     }
     int i = 0;
     for (ModelDataDefinition* data : *_elementSet->list()) {
         this->_attachedDataInsert("Member" + Util::StrIndex(i), data);
     }
-    *errorMessage += "";
+    errorMessage += "";
     return resultAll;
 }
 

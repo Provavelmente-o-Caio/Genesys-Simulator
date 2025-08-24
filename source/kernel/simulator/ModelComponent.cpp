@@ -92,13 +92,13 @@ void ModelComponent::CreateInternalData(ModelComponent* component) {
 bool ModelComponent::Check(ModelComponent* component) {
 	component->trace("Checking " + component->_typename + ": \"" + component->getName() + "\""); //std::to_string(component->_id));
 	bool res = false;
-	std::string* errorMessage = new std::string();
+    std::string errorMessage = "";
 	Util::IncIndent();
 	{
 		try {
-			res = component->_check(errorMessage);
+            res = component->_check(errorMessage);
 			if (!res) {
-				component->traceError("Error: Checking has failed with message '" + *errorMessage + "'");
+                component->traceError("Error: Checking has failed with message '" + errorMessage + "'");
 			}
 		} catch (const std::exception& e) {
 			component->traceError("Error verifying component " + component->show(), e);
@@ -170,7 +170,7 @@ void ModelComponent::_saveInstance(PersistenceRecord *fields, bool saveDefaultVa
 //
 
 /*
-bool ModelComponent::_check(std::string* errorMessage) {
+bool ModelComponent::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll &= _someString != "";
 	resultAll &= _someUint > 0;

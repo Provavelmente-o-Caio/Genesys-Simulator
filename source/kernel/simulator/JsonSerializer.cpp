@@ -252,7 +252,7 @@ static Json json(const std::string& input, std::size_t& pos, Token& lookahead) {
 	switch (lookahead.kind) {
 		case Token::Kind::f: // <json> ::= false
 			lookahead = lex(input, pos);
-			return { Json::Kind::boolean, .value = 0};
+            return { Json::Kind::boolean, 0, {}};
 		case Token::Kind::lbrace: // <json> ::= <object>
 			return object(input, pos, lookahead);
 		case Token::Kind::lbracket: // <json> ::= <array>
@@ -264,17 +264,18 @@ static Json json(const std::string& input, std::size_t& pos, Token& lookahead) {
 		{ // <json> ::= number
 			auto value = std::stod(lookahead.str);
 			lookahead = lex(input, pos);
-			return { Json::Kind::number, .value = value};
+            return { Json::Kind::number, value, {}};
 		}
 		case Token::Kind::string:
 		{ // <json> ::= string
-			auto text = lookahead.str;
+            auto text = lookahead.str;
 			lookahead = lex(input, pos);
-			return { Json::Kind::string, .text = text};
+            //return { Json::Kind::string, text, {}};
+            return Json{ Json::Kind::string, 0.0, std::move(text) };
 		}
 		case Token::Kind::t: // <json> ::= true
 			lookahead = lex(input, pos);
-			return { Json::Kind::boolean, .value = 1};
+            return { Json::Kind::boolean, 1, {}};
 		default:
 			halt("unexpected token at `json` rule");
 			return {};

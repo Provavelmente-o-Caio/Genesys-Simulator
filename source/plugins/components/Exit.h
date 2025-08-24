@@ -50,7 +50,7 @@ protected: // virtual
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected: // virtual
 	//virtual void _initBetweenReplications();
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 private: // methods
 private: // attributes 1:1
 private: // attributes 1:n

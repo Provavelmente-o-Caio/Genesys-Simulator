@@ -117,8 +117,8 @@ void StatisticsCollector::_saveInstance(PersistenceRecord *fields, bool saveDefa
 	fields->saveField("parentId", parentId);
 }
 
-bool StatisticsCollector::_check(std::string* errorMessage) {
+bool StatisticsCollector::_check(std::string& errorMessage) {
 	// @TODO: To implement!
-	*errorMessage += "";
+	errorMessage += "";
 	return true;
 }

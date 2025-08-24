@@ -51,7 +51,7 @@ protected:
 	virtual bool _loadInstance(PersistenceRecord *fields);
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected:
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 
 private:
 	void _initStaticsAndCollector();

@@ -85,7 +85,7 @@ public: // new methods
 	CompilationResult compileToExecutable();
 	CompilationResult compileToDynamicLibrary();
 	CompilationResult compileToStaticLibrary();
-	bool loadLibrary(std::string* errorMessage);
+	bool loadLibrary(std::string& errorMessage);
 	bool unloadLibrary();
 	void* getDynamicLibraryHandler() const;
 
@@ -93,7 +93,7 @@ protected: // must be overriden
 	virtual bool _loadInstance(PersistenceRecord *fields);
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected: // could be overriden
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	// virtual ParserChangesInformation* _getParserChangesInformation();
 	virtual void _initBetweenReplications();
 	virtual void _createInternalAndAttachedData();

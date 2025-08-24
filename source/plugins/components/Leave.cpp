@@ -117,7 +117,7 @@ void Leave::_createInternalAndAttachedData() {
 	_attachedDataInsert("Station", _station);
 }
 
-bool Leave::_check(std::string* errorMessage) {
+bool Leave::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll &= _parentModel->getDataManager()->check(Util::TypeOf<Station>(), _station, "Station", errorMessage);
 	return resultAll;

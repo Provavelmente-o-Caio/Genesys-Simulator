@@ -49,7 +49,7 @@ protected: // virtual
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected: // virtual
 	//virtual void _initBetweenReplications();
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	//virtual void _createInternalAndAttachedData();
 private: // methods
 	bool _doStep();

@@ -148,7 +148,7 @@ void Delay::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	fields->saveField("allocation", static_cast<int> (_allocation), static_cast<int> (DEFAULT.allocation), saveDefaultValues);
 }
 
-bool Delay::_check(std::string* errorMessage) {
+bool Delay::_check(std::string& errorMessage) {
 	return _parentModel->checkExpression(_delayExpression, "Delay expression", errorMessage);
 }
 

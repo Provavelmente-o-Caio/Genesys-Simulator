@@ -56,7 +56,7 @@ protected: // must be overriden
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 	virtual void _onDispatchEvent(Entity* entity, unsigned int inputPortNumber);
 protected: // could be overriden .
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	virtual void _initBetweenReplications();
 	virtual void _createInternalAndAttachedData();
 	//virtual ParserChangesInformation* _getParserChangesInformation();

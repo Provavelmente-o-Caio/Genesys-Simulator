@@ -145,8 +145,8 @@ void EntityType::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues
 	fields->saveField("initialPicture", _initialPicture, DEFAULT.initialPicture, saveDefaults);
 }
 
-bool EntityType::_check(std::string* errorMessage) {
-	*errorMessage += "";
+bool EntityType::_check(std::string& errorMessage) {
+	errorMessage += "";
 	return true;
 }
 

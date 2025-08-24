@@ -148,7 +148,7 @@ void Create::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	SourceModelComponent::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Create::_check(std::string* errorMessage) {
+bool Create::_check(std::string& errorMessage) {
 	bool resultAll = SourceModelComponent::_check(errorMessage);
 	// @TODO Check expression with Schedule and Formula all together
 	return resultAll;

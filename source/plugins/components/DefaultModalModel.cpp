@@ -127,7 +127,7 @@ void DefaultModalModel::_onDispatchEvent(Entity* entity, unsigned int inputPortN
 //
 
 /*
-bool DefaultModalModel::_check(std::string* errorMessage) {
+bool DefaultModalModel::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll &= _someString != "";
 	resultAll &= _someUint > 0;

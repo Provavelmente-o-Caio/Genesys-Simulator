@@ -124,9 +124,9 @@ void Station::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	ModelDataDefinition::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Station::_check(std::string* errorMessage) {
+bool Station::_check(std::string& errorMessage) {
 	_attachedAttributesInsert({"Entity.Station", "Entity.ArrivalAt" + this->getName()});
-	*errorMessage += "";
+	errorMessage += "";
 	return true;
 }
 

@@ -64,23 +64,23 @@ void ModelDataManager::remove(std::string datadefinitionTypename, ModelDataDefin
 	listElements->remove(anElement);
 }
 
-bool ModelDataManager::check(std::string datadefinitionTypename, std::string elementName, std::string expressionName, bool mandatory, std::string * errorMessage) {
+bool ModelDataManager::check(std::string datadefinitionTypename, std::string elementName, std::string expressionName, bool mandatory, std::string& errorMessage) {
 	if (elementName == "" && !mandatory) {
 		return true;
 	}
 	bool result = getDataDefinition(datadefinitionTypename, elementName) != nullptr;
 	if (!result) {
 		std::string msg = datadefinitionTypename + " \"" + elementName + "\" for '" + expressionName + "' is not in the model.";
-		errorMessage->append(msg);
+        errorMessage.append(msg);
 	}
 	return result;
 }
 
-bool ModelDataManager::check(std::string datadefinitionTypename, ModelDataDefinition* anElement, std::string expressionName, std::string * errorMessage) {
+bool ModelDataManager::check(std::string datadefinitionTypename, ModelDataDefinition* anElement, std::string expressionName, std::string& errorMessage) {
 	bool result = anElement != nullptr;
 	if (!result) {
 		std::string msg = datadefinitionTypename + " for '" + expressionName + "' is null.";
-		errorMessage->append(msg);
+        errorMessage.append(msg);
 	} else {
 		result = check(datadefinitionTypename, anElement->getName(), expressionName, true, errorMessage);
 	}

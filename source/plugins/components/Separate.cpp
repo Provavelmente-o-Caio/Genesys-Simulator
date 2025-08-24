@@ -76,7 +76,7 @@ void Separate::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) 
 	ModelComponent::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Separate::_check(std::string* errorMessage) {
+bool Separate::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	_attachedAttributesInsert({"Entity.Group"});
 	return resultAll;

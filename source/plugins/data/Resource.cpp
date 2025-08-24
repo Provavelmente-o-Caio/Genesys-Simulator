@@ -357,9 +357,9 @@ void Resource::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) 
     //@TODO: load failures
 }
 
-bool Resource::_check(std::string* errorMessage) {
+bool Resource::_check(std::string& errorMessage) {
     //@TODO CHECK!
-    *errorMessage += "";
+    errorMessage += "";
     return true;
 }
 

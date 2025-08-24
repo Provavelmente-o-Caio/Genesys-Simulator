@@ -115,7 +115,7 @@ void DummyElement::_saveInstance(PersistenceRecord *fields, bool saveDefaultValu
 //
 
 /*
-bool DummyElementt::_check(std::string* errorMessage) {
+bool DummyElementt::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll &= _someString != "";
 	resultAll &= _someUint > 0;

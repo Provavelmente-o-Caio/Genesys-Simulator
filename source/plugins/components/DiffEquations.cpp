@@ -156,7 +156,7 @@ void DiffEquations::_onDispatchEvent(Entity* entity, unsigned int inputPortNumbe
 //
 
 
-bool DiffEquations::_check(std::string* errorMessage) {
+bool DiffEquations::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	CppCompiler::CompilationResult result;
 	std::string name = this->getName();
@@ -199,7 +199,8 @@ extern \"C\" void onDispatchEvent" + "(Simulator* simulator, Model* model, Entit
 		outfile.close();
 	} catch (const std::exception& e) {
 		resultAll = false;
-		*errorMessage += "Error saving source code to compile: ";// + e.what();
+        errorMessage.append("Error saving source code to compile: ");// + e.what();
+        errorMessage.append(e.what());
 	}
 	// if saved, compile
 	if (resultAll) {
@@ -212,9 +213,9 @@ extern \"C\" void onDispatchEvent" + "(Simulator* simulator, Model* model, Entit
 		if (!result.success) {
 			resultAll = false;
 			if (result.compilationErrOutput != "")
-				*errorMessage += result.compilationErrOutput;
+                errorMessage += result.compilationErrOutput;
 			else
-				*errorMessage += result.compilationStdOutput;
+                errorMessage += result.compilationStdOutput;
 		}
 	}
 	// if compiled, load dynamic library
@@ -223,7 +224,7 @@ extern \"C\" void onDispatchEvent" + "(Simulator* simulator, Model* model, Entit
 		trace("Loading dynamic library \"" + _outputFilename + "\"");
 		resultAll = _cppCompiler->loadLibrary(errorMessage);
 		if (!resultAll) {
-			*errorMessage += ". Error loading dynamic library.";
+            errorMessage += ". Error loading dynamic library.";
 		}
 	}
 	// if dynamic library loaded, then vinculate pointers to loaded functions
@@ -235,7 +236,7 @@ extern \"C\" void onDispatchEvent" + "(Simulator* simulator, Model* model, Entit
 			//initBetweenReplications_SharedLibHandler = (initBetweenReplications_t)dlsym(handle, "initBetweenReplications");
 		} catch (...) {
 			resultAll = false;
-			*errorMessage += "Error vinculating library functions";
+            errorMessage += "Error vinculating library functions";
 		}
 	} else {
 		dispatchEvent_SharedLibHandler = nullptr;

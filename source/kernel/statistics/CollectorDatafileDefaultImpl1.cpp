@@ -31,7 +31,7 @@ void CollectorDatafileDefaultImpl1::clear() {
 		throw "ERROR - can't open the file ";
 	}
 	_numElements = 0;
-	_lastValue = NULL; //@TODO: Change it to NaN or other default/null value
+    _lastValue = std::numeric_limits<double>::quiet_NaN();
 }
 
 void CollectorDatafileDefaultImpl1::addValue(double value, double weight) {

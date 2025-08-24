@@ -50,7 +50,7 @@ public:
     {
         if (DialogSystemPreferences->objectName().isEmpty())
             DialogSystemPreferences->setObjectName("DialogSystemPreferences");
-        DialogSystemPreferences->resize(377, 270);
+        DialogSystemPreferences->resize(555, 465);
         DialogSystemPreferences->setMinimumSize(QSize(0, 270));
         verticalLayout = new QVBoxLayout(DialogSystemPreferences);
         verticalLayout->setObjectName("verticalLayout");

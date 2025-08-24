@@ -184,7 +184,7 @@ void Queue::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	fields->saveField("attributeName", this->_attributeName, DEFAULT.attributeName, saveDefaultValues);
 }
 
-bool Queue::_check(std::string* errorMessage) {
+bool Queue::_check(std::string& errorMessage) {
 	return _parentModel->getDataManager()->check(Util::TypeOf<Attribute>(), _attributeName, "AttributeName", false, errorMessage);
 }
 

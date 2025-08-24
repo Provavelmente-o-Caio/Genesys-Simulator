@@ -115,7 +115,7 @@ void DefaultNode::_onDispatchEvent(Entity* entity, unsigned int inputPortNumber)
 //
 
 /*
-bool DefaultNode::_check(std::string* errorMessage) {
+bool DefaultNode::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll &= _someString != "";
 	resultAll &= _someUint > 0;

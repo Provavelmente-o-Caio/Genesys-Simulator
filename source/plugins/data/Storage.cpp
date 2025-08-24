@@ -102,10 +102,10 @@ void Storage::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	ModelDataDefinition::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Storage::_check(std::string* errorMessage) {
+bool Storage::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	// resultAll |= ...
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }
 

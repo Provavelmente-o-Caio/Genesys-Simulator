@@ -127,7 +127,7 @@ public: // model control
 	 * \param errorMessage
 	 * \return
 	 */
-	double parseExpression(const std::string expression, bool* success, std::string* errorMessage); //!< Invokes the parser to evaluate tyhe expression. Result is always a double, even if expression has syntatic errors (returns 0). Explicitly informs if there was an error
+    double parseExpression(const std::string expression, bool& success, std::string& errorMessage); //!< Invokes the parser to evaluate tyhe expression. Result is always a double, even if expression has syntatic errors (returns 0). Explicitly informs if there was an error
 	/*!
 	 * \brief checkExpression
 	 * \param expression
@@ -135,7 +135,7 @@ public: // model control
 	 * \param errorMessage
 	 * \return
 	 */
-	bool checkExpression(const std::string expression, const std::string expressionName, std::string* errorMessage); //!< This is invoked by ModelComponents and ModelDatas in their private method _check() to verify if an expression defined by user is valid or not
+    bool checkExpression(const std::string expression, const std::string expressionName, std::string& errorMessage); //!< This is invoked by ModelComponents and ModelDatas in their private method _check() to verify if an expression defined by user is valid or not
 	/*!
 	 * \brief checkReferencesToDataDefinitions
 	 * \param expression
@@ -242,7 +242,7 @@ private:
 	void _createModelInternalElements();
 private:
 	bool _hasChanged = false;
-	bool _isChecked = false; // @TODO: Not implemented yet. First, _hasChanged should be trustful
+    //bool _isChecked = false; // @TODO: Not implemented yet. First, _hasChanged should be trustful
 	bool _automaticallyCreatesModelDataDefinitions; // default will come from Traits in the constructor
 private: // read only public access (gets)
 	Util::identification _id;

@@ -226,7 +226,7 @@ void PickStation::_saveInstance(PersistenceRecord *fields, bool saveDefaultValue
 
 //ParserChangesInformation* DummyElement::_getParserChangesInformation() {}
 
-bool PickStation::_check(std::string* errorMessage) {
+bool PickStation::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	//resultAll &= _someString != "";
 	//resultAll &= _someUint > 0;

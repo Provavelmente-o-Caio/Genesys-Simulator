@@ -109,10 +109,10 @@ void SourceModelComponent::_saveInstance(PersistenceRecord *fields, bool saveDef
 	}
 }
 
-bool SourceModelComponent::_check(std::string* errorMessage) {
+bool SourceModelComponent::_check(std::string& errorMessage) {
 	bool resultAll = true;
-	resultAll &= _parentModel->getDataManager()->check(Util::TypeOf<EntityType>(), _entityType, "entitytype", errorMessage);
-	resultAll &= _parentModel->checkExpression(this->_timeBetweenCreationsExpression, "time between creations", errorMessage);
+    resultAll &= _parentModel->getDataManager()->check(Util::TypeOf<EntityType>(), _entityType, "entitytype", errorMessage);
+    resultAll &= _parentModel->checkExpression(this->_timeBetweenCreationsExpression, "time between creations", errorMessage);
 	return resultAll;
 }
 

@@ -56,7 +56,7 @@ protected: //! must be overriden by derived classes
 	virtual bool _loadInstance(PersistenceRecord *fields);
 	virtual void _saveInstance(PersistenceRecord *fields, bool saveDefaultValues);
 protected: //! could be overriden by derived classes
-	virtual bool _check(std::string* errorMessage);
+	virtual bool _check(std::string& errorMessage);
 	virtual void _initBetweenReplications();
 private:
 	ModelDataDefinition* _parent;

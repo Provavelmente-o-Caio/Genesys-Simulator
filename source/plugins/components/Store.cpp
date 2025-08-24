@@ -60,10 +60,10 @@ void Store::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	// @TODO: not implemented yet
 }
 
-bool Store::_check(std::string* errorMessage) {
+bool Store::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	// @TODO: not implemented yet
-	*errorMessage += "";
+	errorMessage += "";
 	return resultAll;
 }
 

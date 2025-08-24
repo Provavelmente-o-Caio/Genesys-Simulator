@@ -64,9 +64,9 @@ void Dispose::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	ModelComponent::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Dispose::_check(std::string* errorMessage) {
+bool Dispose::_check(std::string& errorMessage) {
 	//SinkModelComponent::_check(errorMessage);
-	*errorMessage += "";
+	errorMessage += "";
 
 	return true;
 }

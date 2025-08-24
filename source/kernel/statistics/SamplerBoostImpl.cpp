@@ -23,27 +23,38 @@ double SamplerBoostImpl::random() {
 	return 0.0; // dist(_gen);
 }
 
+
+
 double SamplerBoostImpl::sampleBeta(double alpha, double beta, double infLimit, double supLimit) {
-	return 0.0; // \todo: not implemented yet (dummy impl)
+    return 0.0; // \todo: not implemented yet (dummy impl)
+}
+
+
+double SamplerBoostImpl::sampleBeta(double alpha, double beta) {
+    return 0.0; // \todo: not implemented yet (dummy impl)
 }
 
 double SamplerBoostImpl::sampleDiscrete(double acumProb, double value, ...) {
 	return 0.0; // \todo: not implemented yet (dummy impl)
 }
 
-double SamplerBoostImpl::sampleErlang(double mean, int M) {
+double SamplerBoostImpl::sampleErlang(double mean, int M, double offset) {
 	return 0.0; // \todo: not implemented yet (dummy impl)
 }
 
-double SamplerBoostImpl::sampleExponential(double mean) {
+double SamplerBoostImpl::sampleExponential(double mean, double offset) {
 	return 0.0; // \todo: not implemented yet (dummy impl)
 }
 
-double SamplerBoostImpl::sampleGamma(double mean, double alpha) {
+double SamplerBoostImpl::sampleGamma(double mean, double alpha, double offset) {
 	return 0.0; // \todo: not implemented yet (dummy impl)
 }
 
-double SamplerBoostImpl::sampleLogNormal(double mean, double stddev) {
+double SamplerBoostImpl::sampleGumbell(double mode, double scale){
+    return 0.0; // \todo: not implemented yet (dummy impl)
+}
+
+double SamplerBoostImpl::sampleLogNormal(double mean, double stddev, double offset) {
 	return 0.0; // \todo: not implemented yet (dummy impl)
 }
 
@@ -64,10 +75,26 @@ double SamplerBoostImpl::sampleWeibull(double alpha, double scale) {
 	return 0.0; // \todo: not implemented yet (dummy impl)
 }
 
+double SamplerBoostImpl::sampleBinomial(int trials, double p) {
+    return 0.0; // \todo: not implemented yet (dummy impl)
+}
+double SamplerBoostImpl::sampleBernoulli(double p) {
+    return 0.0; // \todo: not implemented yet (dummy impl)
+}
+
+double SamplerBoostImpl::sampleDiscrete(double *prob, double *value, int size) {
+    return 0.0; // \todo: not implemented yet (dummy impl)
+}
+double SamplerBoostImpl::sampleGeometric(double p) {
+    return 0.0; // \todo: not implemented yet (dummy impl)
+}
+
+
 void SamplerBoostImpl::setRNGparameters(Sampler_if::RNG_Parameters* param) {
 
 }
 
 Sampler_if::RNG_Parameters* SamplerBoostImpl::getRNGparameters() const {
 	// \todo: toimplement
+    return nullptr;
 }

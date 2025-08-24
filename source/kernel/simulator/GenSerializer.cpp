@@ -126,8 +126,10 @@ bool GenSerializer::load(std::istream& input) {
 		std::vector<std::string> lstfields{tit,{}};
 		auto fields = std::unique_ptr<PersistenceRecord>(this->newPersistenceRecord());
 		// for each field, separate key and value and form a record
-		regex = {R"([=]+)"};
-		i = 0;
+        //regex = {R"([=]+)"};
+        regex = std::regex(R"([=]+)");
+
+
 		for (auto it = lstfields.begin(); it != lstfields.end(); it++, i++) {
 			std::string key, val;
 			// 

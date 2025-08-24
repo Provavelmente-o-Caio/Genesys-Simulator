@@ -212,8 +212,8 @@ void ModelDataDefinition::_saveInstance(PersistenceRecord *fields, bool saveDefa
 	fields->saveField("reportStatistics", _reportStatistics, TraitsKernel<ModelDataDefinition>::reportStatistics, saveDefaultValues);
 }
 
-bool ModelDataDefinition::_check(std::string* errorMessage) {
-	*errorMessage += "";
+bool ModelDataDefinition::_check(std::string& errorMessage) {
+	errorMessage += "";
 	return true; // if there is no ovveride, return true
 }
 
@@ -352,7 +352,7 @@ void ModelDataDefinition::SaveInstance(PersistenceRecord *fields, ModelDataDefin
 	}
 }
 
-bool ModelDataDefinition::Check(ModelDataDefinition* modeldatum, std::string* errorMessage) {
+bool ModelDataDefinition::Check(ModelDataDefinition* modeldatum, std::string& errorMessage) {
 	//    modeldatum->_model->getTraceManager()->trace(TraceManager::Level::L9_mostDetailed, "Checking " + modeldatum->_typename + ": " + modeldatum->_name); //std::to_string(modeldatum->_id));
 	bool res = false;
 	Util::IncIndent();

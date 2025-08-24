@@ -96,7 +96,7 @@ void SignalData::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues
 
 // protected virtual -- could be overriden
 
-bool SignalData::_check(std::string* errorMessage) {
+bool SignalData::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	//!@TODO
 	resultAll &= _signalDataEventHandlers->size() > 0;

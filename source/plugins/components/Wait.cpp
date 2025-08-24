@@ -161,7 +161,7 @@ void Wait::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 
 // protected virtual could override
 
-bool Wait::_check(std::string * errorMessage) {
+bool Wait::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	if (_waitType == Wait::WaitType::ScanForCondition) {
 		resultAll = _parentModel->checkExpression(_condition, "Condition", errorMessage);

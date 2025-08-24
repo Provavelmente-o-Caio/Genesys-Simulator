@@ -207,32 +207,32 @@ void Search::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	// @TODO: not implemented yet
 }
 
-bool Search::_check(std::string* errorMessage) {
+bool Search::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	bool sucess;
 	std::string msg = "";
 	resultAll = _searchIn != nullptr;
 	if (!resultAll) {
-		*errorMessage += "SearchIn was not defined.";
+		errorMessage += "SearchIn was not defined.";
 	}
 	if (_startRank == "") {
 		resultAll = false;
-		*errorMessage += "StartRank was not defined.";
+		errorMessage += "StartRank was not defined.";
 	} else {
-		_parentModel->parseExpression(_startRank, &sucess, &msg);
+        _parentModel->parseExpression(_startRank, sucess, msg);
 		resultAll &= sucess;
 		if (!sucess) {
-			*errorMessage += msg;
+			errorMessage += msg;
 		}
 	}
 	if (_endRank == "") {
 		resultAll = false;
-		*errorMessage += "EndRank was not defined.";
+		errorMessage += "EndRank was not defined.";
 	} else {
-		_parentModel->parseExpression(_endRank, &sucess, &msg);
+        _parentModel->parseExpression(_endRank, sucess, msg);
 		resultAll &= sucess;
 		if (!sucess) {
-			*errorMessage += msg;
+			errorMessage += msg;
 		}
 	}
 	resultAll &= _parentModel->getDataManager()->check(Util::TypeOf<Attribute>(), _saveFounRankAttribute, "Save Found Rank Attribute", true, errorMessage);
@@ -240,7 +240,7 @@ bool Search::_check(std::string* errorMessage) {
 		resultAll &= (_searchIn->getClassname() == Util::TypeOf<Queue>() && _searchInType == SearchInType::QUEUE) ||
 				(_searchIn->getClassname() == Util::TypeOf<EntityGroup>() && _searchInType == SearchInType::ENTITYGROUP);
 		if (!resultAll) {
-			*errorMessage += "SearchInType differs from what SearchIn actually is.";
+			errorMessage += "SearchInType differs from what SearchIn actually is.";
 		}
 	}
 	return resultAll;

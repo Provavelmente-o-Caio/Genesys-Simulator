@@ -214,11 +214,11 @@ void LSODE::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	// @TODO: not implemented yet
 }
 
-bool LSODE::_check(std::string* errorMessage) {
+bool LSODE::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	std::ofstream savefile;
 	// @TODO: not implemented yet
-	*errorMessage += "";
+	errorMessage += "";
 	if (resultAll) {
 		if (_filename != "") {
 			try {
@@ -238,7 +238,7 @@ bool LSODE::_check(std::string* errorMessage) {
 				savefile.close();
 			} catch (const std::exception& e) {
 				resultAll = false;
-				*errorMessage += "Error creating file";
+				errorMessage += "Error creating file";
 			}
 		}
 

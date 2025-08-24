@@ -15,10 +15,10 @@
 
 SimulationScenario::SimulationScenario() = default;
 
-bool SimulationScenario::startSimulation(Simulator *sim, std::string* errorMessage) {
+bool SimulationScenario::startSimulation(Simulator *sim, std::string& errorMessage) {
 	// @TODO: To implement!
 	// *Simulator??????s
-	*errorMessage = ""; // just clean the error message
+    errorMessage = ""; // just clean the error message
 	return false;
 }
 

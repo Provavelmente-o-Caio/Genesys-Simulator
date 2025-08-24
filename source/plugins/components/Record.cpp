@@ -146,7 +146,7 @@ void Record::_initBetweenReplications() {
 		}
 }
 
-bool Record::_check(std::string* errorMessage) {
+bool Record::_check(std::string& errorMessage) {
 	// when cheking the model (before simulating it), remove the file if exists
 	std::remove(_filename.c_str());
 	return _parentModel->checkExpression(_expression, "expression", errorMessage);

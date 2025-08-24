@@ -157,17 +157,17 @@ void Remove::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	// @TODO: not implemented yet
 }
 
-bool Remove::_check(std::string* errorMessage) {
+bool Remove::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	resultAll = _removeFrom != nullptr;
 	if (!resultAll) {
-		*errorMessage += "RemoveFrom was not defined.";
+		errorMessage += "RemoveFrom was not defined.";
 	}
 	if (resultAll) {
 		resultAll &= (_removeFrom->getClassname() == Util::TypeOf<Queue>() && _removeFromType == RemoveFromType::QUEUE) ||
 				(_removeFrom->getClassname() == Util::TypeOf<EntityGroup>() && _removeFromType == RemoveFromType::ENTITYGROUP);
 		if (!resultAll) {
-			*errorMessage += "RemoveFromType differs from what RemoveFrom actually is.";
+			errorMessage += "RemoveFromType differs from what RemoveFrom actually is.";
 		}
 	}
 	return resultAll;

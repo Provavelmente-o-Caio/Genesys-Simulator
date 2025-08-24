@@ -295,7 +295,7 @@ void Seize::_createInternalAndAttachedData() {
 	}
 }
 
-bool Seize::_check(std::string* errorMessage) {
+bool Seize::_check(std::string& errorMessage) {
 	bool resultAll = true;
 	// Check SeizableItems
 	int i = 0;
@@ -313,7 +313,7 @@ bool Seize::_check(std::string* errorMessage) {
 	// Check QueueableItem
 	if (_queueableItem == nullptr) {
 		resultAll = false;
-		*errorMessage += "QueueableItem is missing";
+		errorMessage += "QueueableItem is missing";
 	} else {
 		if (_queueableItem->getQueueableType() == QueueableItem::QueueableType::QUEUE) {
 			// Queue* queue = _queueableItem->getQueue();

@@ -14,7 +14,7 @@
 // std
 #include <string>
 #include <fstream>
-#include <sstream>
+//#include <sstream>
 #include <cstdlib>
 //#include <streambuf>
 
@@ -415,37 +415,6 @@ void MainWindow::on_actionEditCut_triggered() {
 
     }
 }
-
-void::MainWindow::saveItemForCopy(QList<GraphicalModelComponent*> * gmcList, QList<GraphicalConnection*> * connList) {
-    foreach (GraphicalConnection *conn, *connList) {
-        ModelComponent * source = conn->getSource()->component;
-        ModelComponent * dst = conn->getDestination()->component;
-
-        GraphicalModelComponent * sourceSelected = nullptr;
-        GraphicalModelComponent * dstSelected = nullptr;
-        foreach (GraphicalModelComponent * comp, *gmcList) {
-
-            if (source != nullptr) {
-
-                if (comp->getComponent()->getId() == source->getId()) {
-                    sourceSelected = comp;
-                }
-            }
-
-            if (dst != nullptr) {
-
-                if (comp->getComponent()->getId() == dst->getId()) {
-                    dstSelected = comp;
-                }
-            }
-        }
-
-        if (sourceSelected == nullptr || dstSelected == nullptr) {
-            connList->removeOne(conn);
-        }
-    }
-}
-
 
 void MainWindow::on_actionEditCopy_triggered() {
     _gmc_copies->clear();

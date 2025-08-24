@@ -34,12 +34,12 @@ public:
 	 * \param errorMessage
 	 * \return
 	 */
-	virtual double parse(const std::string expression, bool* success, std::string* errorMessage) = 0; // does not throw exceptions
+    virtual double parse(const std::string expression, bool& success, std::string& errorMessage) = 0; // does not throw exceptions
 	/*!
 	 * \brief getErrorMessage
 	 * \return
 	 */
-	virtual std::string* getErrorMessage() = 0; // to get error message in the case of thrown exception
+    virtual std::string getErrorMessage() = 0; // to get error message in the case of thrown exception
 	/*!
 	 * \brief setSampler
 	 * \param sampler

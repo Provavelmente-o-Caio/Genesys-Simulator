@@ -79,8 +79,8 @@ void Counter::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	ModelDataDefinition::_saveInstance(fields, saveDefaultValues);
 }
 
-bool Counter::_check(std::string* errorMessage) {
-	*errorMessage += "";
+bool Counter::_check(std::string& errorMessage) {
+    errorMessage += "";
 	return true;
 }
 

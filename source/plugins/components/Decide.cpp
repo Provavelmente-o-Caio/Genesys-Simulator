@@ -103,7 +103,7 @@ void Decide::_saveInstance(PersistenceRecord *fields, bool saveDefaultValues) {
 	}
 }
 
-bool Decide::_check(std::string* errorMessage) {
+bool Decide::_check(std::string& errorMessage) {
 	bool allResult = true;
 	std::string condition;
 	for (std::list<std::string>::iterator it = _conditions->list()->begin(); it != _conditions->list()->end(); it++) {
