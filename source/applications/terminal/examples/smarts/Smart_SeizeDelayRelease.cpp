@@ -46,6 +46,7 @@ int Smart_SeizeDelayRelease::main(int argc, char** argv) {
 	create1->setTimeBetweenCreationsExpression("expo(20)");
 	create1->setTimeUnit(Util::TimeUnit::second);
 	create1->setEntitiesPerCreation(1);
+    create1->setFirstCreation(0.0);
 	Resource* machine1 = plugins->newInstance<Resource>(model, "Machine_1");
 	machine1->setCapacity(1);
 	Queue* queueSeize1 = plugins->newInstance<Queue>(model, "Seize_1.Queue");
@@ -59,6 +60,7 @@ int Smart_SeizeDelayRelease::main(int argc, char** argv) {
 	Release* release1 = plugins->newInstance<Release>(model);
 	release1->getReleaseRequests()->insert(new SeizableItem(machine1, "1"));
 	Dispose* dispose1 = plugins->newInstance<Dispose>(model);
+    dispose1->setReportStatistics(true);
 	// connect model components to create a "workflow"
 	create1->getConnectionManager()->insert(seize1);
 	seize1->getConnectionManager()->insert(delay1);

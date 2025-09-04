@@ -232,7 +232,7 @@ SOURCES += \
     ../../../terminal/examples/teaching/OperatingSystem03.cpp \
     ../../../terminal/examples/teaching/Rectifier.cpp \
     codeeditor/CodeEditor.cpp \
-    mainwindow_controller_on.cpp \
+    mainwindow_controller.cpp \
     mainwindow_modelrepresentations.cpp \
     mainwindow_scene.cpp \
     mainwindow_simulator.cpp \

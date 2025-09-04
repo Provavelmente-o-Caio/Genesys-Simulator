@@ -38,187 +38,6 @@
 #include <QRegularExpression>
 #include <QRandomGenerator>
 
-// -------------------------------------
-// on Widgets
-// -------------------------------------
-
-void MainWindow::on_tabWidget_Model_tabBarClicked(int index) {
-
-}
-
-void MainWindow::on_checkBox_ShowElements_stateChanged(int arg1) {
-    bool result = _createModelImage();
-}
-
-void MainWindow::on_checkBox_ShowInternals_stateChanged(int arg1) {
-    bool result = _createModelImage();
-}
-
-void MainWindow::on_horizontalSlider_Zoom_valueChanged(int value) {
-    double factor = ((double) value / 100.0)*(2 - 0.5) + 0.5;
-    double scaleFactor = 1.0;
-    // @TODO: Qt5 -- Q_ASSERT(ui->label_ModelGraphic->pixmap());
-    scaleFactor *= factor;
-    ui->label_ModelGraphic->resize(scaleFactor * ui->label_ModelGraphic->pixmap().size());
-    //adjustScrollBar(ui->scrollArea_Graphic->horizontalScrollBar(), factor);
-    //adjustScrollBar(ui->scrollArea_Graphic->verticalScrollBar(), factor);
-
-    //void ImageViewer::adjustScrollBar(QScrollBar *scrollBar, double factor){
-    //    scrollBar->setValue(int(factor * scrollBar->value()
-    //                            + ((factor - 1) * scrollBar->pageStep()/2)));
-    //}
-
-    //zoomInAct->setEnabled(scaleFactor < 3.0);
-    //zoomOutAct->setEnabled(scaleFactor > 0.333);
-}
-
-void MainWindow::on_checkBox_ShowRecursive_stateChanged(int arg1) {
-    bool result = _createModelImage();
-}
-
-void MainWindow::on_checkBox_ShowLevels_stateChanged(int arg1) {
-    bool result = _createModelImage();
-}
-
-void MainWindow::on_tabWidget_Debug_currentChanged(int index) {
-    _actualizeActions();
-}
-
-void MainWindow::on_pushButton_Breakpoint_Insert_clicked() {
-    //ModelSimulation* sim = simulator->getModels()->current()->getSimulation();
-    dialogBreakpoint* dialog = new dialogBreakpoint();
-    dialog->setMVCModel(simulator);
-    dialog->show();
-    dialog->raise();
-    dialog->activateWindow();
-    std::string type, on;
-    dialogBreakpoint::MVCResult* result = dialog->getMVCResult();
-    if (result->type == "Time") {
-
-    } else if (result->type == "Entity") {
-
-    } else if (result->type == "Component") {
-
-    }
-
-    dialog->~dialogBreakpoint();
-    _actualizeDebugBreakpoints(true);
-}
-
-void MainWindow::on_pushButton_Breakpoint_Remove_clicked() {
-    ModelSimulation* sim = simulator->getModelManager()->current()->getSimulation();
-}
-
-void MainWindow::on_tabWidgetCentral_currentChanged(int index) {
-    _actualizeTabPanes();
-}
-
-void MainWindow::on_tabWidgetCentral_tabBarClicked(int index) {
-}
-
-void MainWindow::on_treeWidget_Plugins_itemDoubleClicked(QTreeWidgetItem *item, int column) {
-    if (ui->TextCodeEditor->isEnabled()) { // add text to modelsimulation
-        /*
-        if (item->toolTip(0).contains("DataDefinition")) {
-            QTextCursor cursor = ui->TextCodeEditor->textCursor();
-            QTextCursor cursorSaved = cursor;
-            cursor.movePosition(QTextCursor::Start);
-            ui->TextCodeEditor->setTextCursor(cursor);
-            if (ui->TextCodeEditor->find("# Model Components")) {
-                ui->TextCodeEditor->moveCursor(QTextCursor::MoveOperation::Left, QTextCursor::MoveMode::MoveAnchor);
-                ui->TextCodeEditor->moveCursor(QTextCursor::MoveOperation::Up, QTextCursor::MoveMode::MoveAnchor);
-                ui->TextCodeEditor->insertPlainText(item->statusTip(0) + "\n");
-            } else {
-                ui->TextCodeEditor->appendPlainText(item->statusTip(0));
-            }
-        } else {
-            ui->TextCodeEditor->appendPlainText(item->statusTip(0));
-        }
-         */
-    } else {
-        // treeRoot? Always?
-        for (int i = 0; i < ui->treeWidget_Plugins->topLevelItemCount(); i++) {
-            //if (ui->treeWidget_Plugins->topLevelItem(i) != item) {
-            ui->treeWidget_Plugins->topLevelItem(i)->setExpanded(false);
-            //} else {
-            //	ui->treeWidget_Plugins->expandItem(item);
-            //	//ui->treeWidget_Plugins->topLevelItem(i)->setExpanded(true);
-            //}
-        }
-        //ui->treeWidget_Plugins->setAnimated(true);
-        ui->treeWidget_Plugins->expandItem(item);
-    }
-}
-
-void MainWindow::on_graphicsView_rubberBandChanged(const QRect &viewportRect, const QPointF &fromScenePoint, const QPointF &toScenePoint) {
-    _showMessageNotImplemented();
-}
-
-void MainWindow::on_horizontalSlider_ZoomGraphical_valueChanged(int value) {
-    double factor = (value - _zoomValue)*0.002;
-    _zoomValue = value;
-    _gentle_zoom(1.0 + factor);
-}
-
-void MainWindow::on_actionConnect_triggered() {
-    ((ModelGraphicsView*) ui->graphicsView)->beginConnection();
-}
-
-void MainWindow::on_pushButton_Export_clicked() {
-    _showMessageNotImplemented();
-}
-
-void MainWindow::on_tabWidgetModelLanguages_currentChanged(int index) {
-    if (index == CONST.TabModelSimLangIndex) {
-        if (_graphicalModelHasChanged) {
-            _actualizeModelSimLanguage();
-        }
-    } else if (index == CONST.TabModelCppCodeIndex) {
-        _actualizeModelCppCode();
-    }
-    _actualizeActions();
-}
-
-void MainWindow::on_actionComponent_Breakpoint_triggered() {
-    if (ui->graphicsView->selectedItems().size() == 1) {
-        QGraphicsItem* gi = ui->graphicsView->selectedItems().at(0);
-        GraphicalModelComponent* gmc = dynamic_cast<GraphicalModelComponent*> (gi);
-        if (gmc != nullptr) {
-            ModelComponent* mc = gmc->getComponent();
-            ModelSimulation* sim = simulator->getModelManager()->current()->getSimulation();
-            if (sim->getBreakpointsOnComponent()->find(mc) == sim->getBreakpointsOnComponent()->list()->end()) {
-                sim->getBreakpointsOnComponent()->insert(mc);
-            } else {
-                sim->getBreakpointsOnComponent()->remove(mc);
-            }
-        }
-        _actualizeDebugBreakpoints(false);
-    }
-}
-
-void MainWindow::on_treeWidgetComponents_itemSelectionChanged() {
-    _showMessageNotImplemented();
-}
-
-void MainWindow::on_treeWidget_Plugins_itemClicked(QTreeWidgetItem *item, int column) {
-    //showMessageNotImplemented();
-}
-
-void MainWindow::on_TextCodeEditor_textChanged() {
-    this->_actualizeModelTextHasChanged(true);
-}
-
-void MainWindow::on_tabWidgetModel_currentChanged(int index) {
-    _actualizeTabPanes();
-}
-
-void MainWindow::on_tabWidgetSimulation_currentChanged(int index) {
-    _actualizeTabPanes();
-}
-
-void MainWindow::on_tabWidgetReports_currentChanged(int index) {
-    _actualizeTabPanes();
-}
 
 //-------------------------
 // PRIVATE SLOTS
@@ -600,32 +419,8 @@ void MainWindow::on_actionDrawPoligon_triggered()
     }
 }
 
-void MainWindow::unselectDrawIcons() {
-    ModelGraphicsScene* scene = ui->graphicsView->getScene();
-    ui->actionDrawLine->setChecked(false);
-    ui->actionDrawRectangle->setChecked(false);
-    ui->actionDrawEllipse->setChecked(false);
-    ui->actionDrawPoligon->setChecked(false);
-    ui->actionDrawText->setChecked(false);
-    ui->actionAnimateCounter->setChecked(false);
-    ui->actionAnimateVariable->setChecked(false);
-    ui->actionAnimateSimulatedTime->setChecked(false);
-    scene->clearDrawingMode();
-}
 
-bool MainWindow::checkSelectedDrawIcons() {
-    int alreadyChecked = 0;
-    if(ui->actionDrawLine->isChecked()) alreadyChecked++;
-    if(ui->actionDrawRectangle->isChecked()) alreadyChecked++;
-    if(ui->actionDrawEllipse->isChecked()) alreadyChecked++;
-    if(ui->actionDrawPoligon->isChecked()) alreadyChecked++;
-    if(ui->actionDrawText->isChecked()) alreadyChecked++;
-    if(ui->actionAnimateCounter->isChecked()) alreadyChecked++;
-    if(ui->actionAnimateVariable->isChecked()) alreadyChecked++;
-    if(ui->actionAnimateSimulatedTime->isChecked()) alreadyChecked++;
-    if (alreadyChecked > 1) return true;
-    else return false;
-}
+
 
 void MainWindow::on_actionAnimateExpression_triggered() {
     _showMessageNotImplemented();
@@ -797,52 +592,7 @@ void MainWindow::on_actionViewConfigure_triggered()
 //void MainWindow::on_actionOpen_triggered() {//?????????????????????????
 //}
 
-void MainWindow::_initUiForNewModel(Model* m) {
-    _actualizeUndo();
-    ui->graphicsView->getScene()->showGrid(); //@TODO: Bad place to be
-    ui->textEdit_Simulation->clear();
-    ui->textEdit_Reports->clear();
-    ui->textEdit_Console->moveCursor(QTextCursor::End);
-    if (m == nullptr) { // a new model. Create the model template
-        ui->TextCodeEditor->clear();
-        // create a basic initial template for the model
-        std::string tempFilename = "./temp.tmp";
-        m->getPersistence()->setOption(ModelPersistence_if::Options::SAVEDEFAULTS, true);
-        bool res = m->save(tempFilename);
-        m->getPersistence()->setOption(ModelPersistence_if::Options::SAVEDEFAULTS, false);
-        if (res) { // read the file saved and copy its contents to the model text editor
-            std::string line;
-            std::ifstream file(tempFilename);
-            if (file.is_open()) {
-                ui->TextCodeEditor->appendPlainText("# Genesys Model File");
-                ui->TextCodeEditor->appendPlainText("# Simulator, ModelInfo and ModelSimulation");
-                while (std::getline(file, line)) {
-                    ui->TextCodeEditor->appendPlainText(QString::fromStdString(line));
-                }
-                file.close();
-                //QMessageBox::information(this, "New Model", "Model successfully created");
-            } else {
-                ui->textEdit_Console->append(QString("Error reading template model file"));
-            }
-            _actualizeModelTextHasChanged(true);
-            _setOnEventHandlers();
-        } else {
-            ui->textEdit_Console->append(QString("Error saving template model file"));
-        }
-        _modelfilename = "";
-    } else {	// beind loaded
-        _setOnEventHandlers();
-    }
-    _actualizeActions();
-    _actualizeTabPanes();
-}
 
-void MainWindow::_actualizeUndo() {
-    undoView = new QUndoView(ui->graphicsView->getScene()->getUndoStack());
-    undoView->setWindowTitle(tr("Command List"));
-    undoView->setVisible(false);
-    undoView->setAttribute(Qt::WA_QuitOnClose, false);
-}
 
 void MainWindow::on_actionModelNew_triggered() {
     Model* m;
@@ -954,12 +704,7 @@ void MainWindow::on_actionModelSave_triggered()
     ui->graphicsView->getScene()->getUndoStack()->clear();
 }
 
-void MainWindow::closeEvent(QCloseEvent *event) {
-    // limpando referencia do ultimo elemento selecionado em property editor
-    ui->treeViewPropertyEditor->clearCurrentlyConnectedObject();
 
-    QMainWindow::closeEvent(event);
-}
 
 void MainWindow::on_actionModelClose_triggered()
 {
@@ -1023,83 +768,6 @@ void MainWindow::on_actionModelInformation_triggered()
 void MainWindow::on_actionModelCheck_triggered()
 {
     _check();
-}
-
-bool MainWindow::_check(bool success)
-{
-    _insertCommandInConsole("check");
-
-    // reinsere os data definitions no modelo de componentes restauradosapenas se não for um modelo previamente carregado que ja tem seus data definitions
-    myScene()->insertRestoredDataDefinitions(_loaded);
-
-    _loaded = false;
-
-    // Ativa visualização de animação
-    ui->actionActivateGraphicalSimulation->setChecked(true);
-
-    // Valida o modelo
-    bool res = simulator->getModelManager()->current()->check();
-
-    // cria o StatisticsCollector pro EntityType se necessário
-    setStatisticsCollector();
-
-    // limpa o valor dos contadores, variáveis e timer na cena
-    myScene()->clearAnimationsValues();
-
-    // Atualiza as ações e painéis
-    _actualizeActions();
-    _actualizeTabPanes();
-
-    if (res) {
-        ModelGraphicsScene* scene = (ModelGraphicsScene*) (ui->graphicsView->scene());
-        // Mensagem de sucesso
-        if (success) {
-            if (!scene->existDiagram()){
-                scene->createDiagrams();
-            } else {
-                scene->destroyDiagram();
-                scene->createDiagrams();
-            }
-            QMessageBox::information(this, "Model Check", "Model successfully checked.");
-        }
-        // Salva os data definitions dos componentes atuais
-        myScene()->saveDataDefinitions();
-
-        // Seta os em uma lista os contadores e variáveis criadas
-        myScene()->setCounters();
-        myScene()->setVariables();
-
-        _modelCheked = true;
-    } else {
-        // Mensagem de erro
-        QMessageBox::critical(this, "Model Check", "Model has erros. See the console for more information.");
-        _modelCheked = false;
-    }
-
-    return res;
-}
-
-void MainWindow::setStatisticsCollector() {
-    std::list<ModelDataDefinition*>* entityTypes = simulator->getModelManager()->current()->getDataManager()->getDataDefinitionList(Util::TypeOf<EntityType>())->list();
-    std::list<ModelDataDefinition*>* stCollectors = simulator->getModelManager()->current()->getDataManager()->getDataDefinitionList(Util::TypeOf<StatisticsCollector>())->list();
-
-    QList<ModelDataDefinition*> qlStCollectors(stCollectors->begin(), stCollectors->end());
-
-    if (!entityTypes->empty()) {
-        std::string suffix = ".TotalTimeInSystem";
-
-        for (ModelDataDefinition* stCollector : *entityTypes) {
-            if (stCollector->isReportStatistics()) {
-                StatisticsCollector* stc = static_cast<EntityType*> (stCollector)->addGetStatisticsCollector(stCollector->getName() + suffix);
-
-                // necessário pois o kernel remove o StatisticsCollector de DataManager mas não de _statisticsCollectors usado
-                // por addGetStatisticsCollector para criar ou não (verifica se tem na lista) o Data Definition
-                if (!qlStCollectors.contains(stc)) {
-                    simulator->getModelManager()->current()->getDataManager()->insert(stc);
-                }
-            }
-        }
-    }
 }
 
 void MainWindow::on_actionSimulatorExit_triggered()
@@ -1322,4 +990,188 @@ void MainWindow::on_actionParallelization_triggered()
 void MainWindow::on_horizontalSlider_ZoomGraphical_actionTriggered(int action)
 {
 
+}
+
+
+
+// -------------------------------------
+// on Widgets
+// -------------------------------------
+
+void MainWindow::on_tabWidget_Model_tabBarClicked(int index) {
+
+}
+
+void MainWindow::on_checkBox_ShowElements_stateChanged(int arg1) {
+    bool result = _createModelImage();
+}
+
+void MainWindow::on_checkBox_ShowInternals_stateChanged(int arg1) {
+    bool result = _createModelImage();
+}
+
+void MainWindow::on_horizontalSlider_Zoom_valueChanged(int value) {
+    double factor = ((double) value / 100.0)*(2 - 0.5) + 0.5;
+    double scaleFactor = 1.0;
+    // @TODO: Qt5 -- Q_ASSERT(ui->label_ModelGraphic->pixmap());
+    scaleFactor *= factor;
+    ui->label_ModelGraphic->resize(scaleFactor * ui->label_ModelGraphic->pixmap().size());
+    //adjustScrollBar(ui->scrollArea_Graphic->horizontalScrollBar(), factor);
+    //adjustScrollBar(ui->scrollArea_Graphic->verticalScrollBar(), factor);
+
+    //void ImageViewer::adjustScrollBar(QScrollBar *scrollBar, double factor){
+    //    scrollBar->setValue(int(factor * scrollBar->value()
+    //                            + ((factor - 1) * scrollBar->pageStep()/2)));
+    //}
+
+    //zoomInAct->setEnabled(scaleFactor < 3.0);
+    //zoomOutAct->setEnabled(scaleFactor > 0.333);
+}
+
+void MainWindow::on_checkBox_ShowRecursive_stateChanged(int arg1) {
+    bool result = _createModelImage();
+}
+
+void MainWindow::on_checkBox_ShowLevels_stateChanged(int arg1) {
+    bool result = _createModelImage();
+}
+
+void MainWindow::on_tabWidget_Debug_currentChanged(int index) {
+    _actualizeActions();
+}
+
+void MainWindow::on_pushButton_Breakpoint_Insert_clicked() {
+    //ModelSimulation* sim = simulator->getModels()->current()->getSimulation();
+    dialogBreakpoint* dialog = new dialogBreakpoint();
+    dialog->setMVCModel(simulator);
+    dialog->show();
+    dialog->raise();
+    dialog->activateWindow();
+    std::string type, on;
+    dialogBreakpoint::MVCResult* result = dialog->getMVCResult();
+    if (result->type == "Time") {
+
+    } else if (result->type == "Entity") {
+
+    } else if (result->type == "Component") {
+
+    }
+
+    dialog->~dialogBreakpoint();
+    _actualizeDebugBreakpoints(true);
+}
+
+void MainWindow::on_pushButton_Breakpoint_Remove_clicked() {
+    ModelSimulation* sim = simulator->getModelManager()->current()->getSimulation();
+}
+
+void MainWindow::on_tabWidgetCentral_currentChanged(int index) {
+    _actualizeTabPanes();
+}
+
+void MainWindow::on_tabWidgetCentral_tabBarClicked(int index) {
+}
+
+void MainWindow::on_treeWidget_Plugins_itemDoubleClicked(QTreeWidgetItem *item, int column) {
+    if (ui->TextCodeEditor->isEnabled()) { // add text to modelsimulation
+        /*
+        if (item->toolTip(0).contains("DataDefinition")) {
+            QTextCursor cursor = ui->TextCodeEditor->textCursor();
+            QTextCursor cursorSaved = cursor;
+            cursor.movePosition(QTextCursor::Start);
+            ui->TextCodeEditor->setTextCursor(cursor);
+            if (ui->TextCodeEditor->find("# Model Components")) {
+                ui->TextCodeEditor->moveCursor(QTextCursor::MoveOperation::Left, QTextCursor::MoveMode::MoveAnchor);
+                ui->TextCodeEditor->moveCursor(QTextCursor::MoveOperation::Up, QTextCursor::MoveMode::MoveAnchor);
+                ui->TextCodeEditor->insertPlainText(item->statusTip(0) + "\n");
+            } else {
+                ui->TextCodeEditor->appendPlainText(item->statusTip(0));
+            }
+        } else {
+            ui->TextCodeEditor->appendPlainText(item->statusTip(0));
+        }
+         */
+    } else {
+        // treeRoot? Always?
+        for (int i = 0; i < ui->treeWidget_Plugins->topLevelItemCount(); i++) {
+            //if (ui->treeWidget_Plugins->topLevelItem(i) != item) {
+            ui->treeWidget_Plugins->topLevelItem(i)->setExpanded(false);
+            //} else {
+            //	ui->treeWidget_Plugins->expandItem(item);
+            //	//ui->treeWidget_Plugins->topLevelItem(i)->setExpanded(true);
+            //}
+        }
+        //ui->treeWidget_Plugins->setAnimated(true);
+        ui->treeWidget_Plugins->expandItem(item);
+    }
+}
+
+void MainWindow::on_graphicsView_rubberBandChanged(const QRect &viewportRect, const QPointF &fromScenePoint, const QPointF &toScenePoint) {
+    _showMessageNotImplemented();
+}
+
+void MainWindow::on_horizontalSlider_ZoomGraphical_valueChanged(int value) {
+    double factor = (value - _zoomValue)*0.002;
+    _zoomValue = value;
+    _gentle_zoom(1.0 + factor);
+}
+
+void MainWindow::on_actionConnect_triggered() {
+    ((ModelGraphicsView*) ui->graphicsView)->beginConnection();
+}
+
+void MainWindow::on_pushButton_Export_clicked() {
+    _showMessageNotImplemented();
+}
+
+void MainWindow::on_tabWidgetModelLanguages_currentChanged(int index) {
+    if (index == CONST.TabModelSimLangIndex) {
+        if (_graphicalModelHasChanged) {
+            _actualizeModelSimLanguage();
+        }
+    } else if (index == CONST.TabModelCppCodeIndex) {
+        _actualizeModelCppCode();
+    }
+    _actualizeActions();
+}
+
+void MainWindow::on_actionComponent_Breakpoint_triggered() {
+    if (ui->graphicsView->selectedItems().size() == 1) {
+        QGraphicsItem* gi = ui->graphicsView->selectedItems().at(0);
+        GraphicalModelComponent* gmc = dynamic_cast<GraphicalModelComponent*> (gi);
+        if (gmc != nullptr) {
+            ModelComponent* mc = gmc->getComponent();
+            ModelSimulation* sim = simulator->getModelManager()->current()->getSimulation();
+            if (sim->getBreakpointsOnComponent()->find(mc) == sim->getBreakpointsOnComponent()->list()->end()) {
+                sim->getBreakpointsOnComponent()->insert(mc);
+            } else {
+                sim->getBreakpointsOnComponent()->remove(mc);
+            }
+        }
+        _actualizeDebugBreakpoints(false);
+    }
+}
+
+void MainWindow::on_treeWidgetComponents_itemSelectionChanged() {
+    _showMessageNotImplemented();
+}
+
+void MainWindow::on_treeWidget_Plugins_itemClicked(QTreeWidgetItem *item, int column) {
+    //showMessageNotImplemented();
+}
+
+void MainWindow::on_TextCodeEditor_textChanged() {
+    this->_actualizeModelTextHasChanged(true);
+}
+
+void MainWindow::on_tabWidgetModel_currentChanged(int index) {
+    _actualizeTabPanes();
+}
+
+void MainWindow::on_tabWidgetSimulation_currentChanged(int index) {
+    _actualizeTabPanes();
+}
+
+void MainWindow::on_tabWidgetReports_currentChanged(int index) {
+    _actualizeTabPanes();
 }

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 // Dialogs
 // Kernel
 #include "../../../../kernel/simulator/SinkModelComponent.h"
@@ -761,8 +762,164 @@ void MainWindow::_helpCopy() {
     _group_copy = group_aux;
 }
 
-//-------------------------
-// PRIVATE SLOTS
-//-------------------------
+
+
+bool MainWindow::_check(bool success)
+{
+    _insertCommandInConsole("check");
+
+    // reinsere os data definitions no modelo de componentes restauradosapenas se não for um modelo previamente carregado que ja tem seus data definitions
+    myScene()->insertRestoredDataDefinitions(_loaded);
+
+    _loaded = false;
+
+    // Ativa visualização de animação
+    ui->actionActivateGraphicalSimulation->setChecked(true);
+
+    // Valida o modelo
+    bool res = simulator->getModelManager()->current()->check();
+
+    // cria o StatisticsCollector pro EntityType se necessário
+    setStatisticsCollector();
+
+    // limpa o valor dos contadores, variáveis e timer na cena
+    myScene()->clearAnimationsValues();
+
+    // Atualiza as ações e painéis
+    _actualizeActions();
+    _actualizeTabPanes();
+
+    if (res) {
+        ModelGraphicsScene* scene = (ModelGraphicsScene*) (ui->graphicsView->scene());
+        // Mensagem de sucesso
+        if (success) {
+            if (!scene->existDiagram()){
+                scene->createDiagrams();
+            } else {
+                scene->destroyDiagram();
+                scene->createDiagrams();
+            }
+            QMessageBox::information(this, "Model Check", "Model successfully checked.");
+        }
+        // Salva os data definitions dos componentes atuais
+        myScene()->saveDataDefinitions();
+
+        // Seta os em uma lista os contadores e variáveis criadas
+        myScene()->setCounters();
+        myScene()->setVariables();
+
+        _modelCheked = true;
+    } else {
+        // Mensagem de erro
+        QMessageBox::critical(this, "Model Check", "Model has erros. See the console for more information.");
+        _modelCheked = false;
+    }
+
+    return res;
+}
+
+void MainWindow::setStatisticsCollector() {
+    std::list<ModelDataDefinition*>* entityTypes = simulator->getModelManager()->current()->getDataManager()->getDataDefinitionList(Util::TypeOf<EntityType>())->list();
+    std::list<ModelDataDefinition*>* stCollectors = simulator->getModelManager()->current()->getDataManager()->getDataDefinitionList(Util::TypeOf<StatisticsCollector>())->list();
+
+    QList<ModelDataDefinition*> qlStCollectors(stCollectors->begin(), stCollectors->end());
+
+    if (!entityTypes->empty()) {
+        std::string suffix = ".TotalTimeInSystem";
+
+        for (ModelDataDefinition* stCollector : *entityTypes) {
+            if (stCollector->isReportStatistics()) {
+                StatisticsCollector* stc = static_cast<EntityType*> (stCollector)->addGetStatisticsCollector(stCollector->getName() + suffix);
+
+                // necessário pois o kernel remove o StatisticsCollector de DataManager mas não de _statisticsCollectors usado
+                // por addGetStatisticsCollector para criar ou não (verifica se tem na lista) o Data Definition
+                if (!qlStCollectors.contains(stc)) {
+                    simulator->getModelManager()->current()->getDataManager()->insert(stc);
+                }
+            }
+        }
+    }
+}
+bool MainWindow::checkSelectedDrawIcons() {
+    int alreadyChecked = 0;
+    if(ui->actionDrawLine->isChecked()) alreadyChecked++;
+    if(ui->actionDrawRectangle->isChecked()) alreadyChecked++;
+    if(ui->actionDrawEllipse->isChecked()) alreadyChecked++;
+    if(ui->actionDrawPoligon->isChecked()) alreadyChecked++;
+    if(ui->actionDrawText->isChecked()) alreadyChecked++;
+    if(ui->actionAnimateCounter->isChecked()) alreadyChecked++;
+    if(ui->actionAnimateVariable->isChecked()) alreadyChecked++;
+    if(ui->actionAnimateSimulatedTime->isChecked()) alreadyChecked++;
+    if (alreadyChecked > 1) return true;
+    else return false;
+}
+
+void MainWindow::unselectDrawIcons() {
+    ModelGraphicsScene* scene = ui->graphicsView->getScene();
+    ui->actionDrawLine->setChecked(false);
+    ui->actionDrawRectangle->setChecked(false);
+    ui->actionDrawEllipse->setChecked(false);
+    ui->actionDrawPoligon->setChecked(false);
+    ui->actionDrawText->setChecked(false);
+    ui->actionAnimateCounter->setChecked(false);
+    ui->actionAnimateVariable->setChecked(false);
+    ui->actionAnimateSimulatedTime->setChecked(false);
+    scene->clearDrawingMode();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    // limpando referencia do ultimo elemento selecionado em property editor
+    ui->treeViewPropertyEditor->clearCurrentlyConnectedObject();
+
+    QMainWindow::closeEvent(event);
+}
+
+void MainWindow::_initUiForNewModel(Model* m) {
+    _actualizeUndo();
+    ui->graphicsView->getScene()->showGrid(); //@TODO: Bad place to be
+    ui->textEdit_Simulation->clear();
+    ui->textEdit_Reports->clear();
+    ui->textEdit_Console->moveCursor(QTextCursor::End);
+    if (m == nullptr) { // a new model. Create the model template
+        ui->TextCodeEditor->clear();
+        // create a basic initial template for the model
+        std::string tempFilename = "./temp.tmp";
+        m->getPersistence()->setOption(ModelPersistence_if::Options::SAVEDEFAULTS, true);
+        bool res = m->save(tempFilename);
+        m->getPersistence()->setOption(ModelPersistence_if::Options::SAVEDEFAULTS, false);
+        if (res) { // read the file saved and copy its contents to the model text editor
+            std::string line;
+            std::ifstream file(tempFilename);
+            if (file.is_open()) {
+                ui->TextCodeEditor->appendPlainText("# Genesys Model File");
+                ui->TextCodeEditor->appendPlainText("# Simulator, ModelInfo and ModelSimulation");
+                while (std::getline(file, line)) {
+                    ui->TextCodeEditor->appendPlainText(QString::fromStdString(line));
+                }
+                file.close();
+                //QMessageBox::information(this, "New Model", "Model successfully created");
+            } else {
+                ui->textEdit_Console->append(QString("Error reading template model file"));
+            }
+            _actualizeModelTextHasChanged(true);
+            _setOnEventHandlers();
+        } else {
+            ui->textEdit_Console->append(QString("Error saving template model file"));
+        }
+        _modelfilename = "";
+    } else {	// beind loaded
+        _setOnEventHandlers();
+    }
+    _actualizeActions();
+    _actualizeTabPanes();
+}
+
+void MainWindow::_actualizeUndo() {
+    undoView = new QUndoView(ui->graphicsView->getScene()->getUndoStack());
+    undoView->setWindowTitle(tr("Command List"));
+    undoView->setVisible(false);
+    undoView->setAttribute(Qt::WA_QuitOnClose, false);
+}
+
 
 
