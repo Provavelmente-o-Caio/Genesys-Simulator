@@ -16,6 +16,7 @@
 #include "GenesysShell/GenesysShell.h"
 #include "examples/smarts/Smart_DefaultModalModel.h"
 #include "examples/smarts/Smart_SeizeDelayRelease.h"
+#include "examples/smarts/Smart_SeizeDelayReleaseMany.h"
 
 template <typename T>
 struct TraitsTerminalApp {
@@ -57,9 +58,9 @@ template <> struct TraitsTerminalApp<GenesysApplication_if> {
 	//typedef Smart_ProcessSet Application;
 	//typedef Smart_Record Application;
 	//typedef Smart_RouteStation Application;
-    typedef Smart_SeizeDelayRelease Application;
+    //typedef Smart_SeizeDelayRelease Application;
 	//typedef Smart_SeizeDelayReleaseNoDataDefs Application;
-	//typedef Smart_SeizeDelayReleaseMany Application;
+    typedef Smart_SeizeDelayReleaseMany Application;
 	//typedef Smart_Sequence Application;
 	//typedef Smart_SynchronizingParallelEntities Application;
 	//typedef Smart_SimulationControlResponse Application;
@@ -77,8 +78,8 @@ template <> struct TraitsTerminalApp<GenesysApplication_if> {
 	//typedef Smart_BatchAndSeparate Application;
 	//typedef Smart_ContinuousFlowEntities Application;
 	//typedef Smart_Create Application;
-	//typedef Smart_DecideNWayByChance Application;
-	//typedef Smart_DefiningAttributesAsStrings Application;
+    //typedef Smart_DecideNWayByChance Application;
+    //typedef Smart_DefiningAttributesAsStrings Application;
 	//typedef Smart_DefiningControlLogic Application;
 	//typedef Smart_DefiningResourceCapacity Application;
 	//typedef Smart_DelayBasedOnReplication Application;

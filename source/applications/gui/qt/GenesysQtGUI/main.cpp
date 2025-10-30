@@ -11,7 +11,7 @@
 int mainGraphicQtApp(int argc, char *argv[]) {
 	QApplication a(argc, argv);
 	MainWindow w;
-	if (TraitsGUI<GMainWindow>::startMaximized) {
+    if constexpr (TraitsGUI<GMainWindow>::startMaximized) {
         w.setWindowState(Qt::WindowMaximized);
         QRect screenGeometry = QApplication::primaryScreen()->availableGeometry(); //QApplication::desktop()->availableGeometry();
         w.resize(screenGeometry.width(), screenGeometry.height());
@@ -29,14 +29,39 @@ int mainTerminalApp(int argc, char *argv[]) {
 }
 
 
+// Função auxiliar genérica
+template <bool runGUI>
+int runApp(int argc, char** argv);
+
+// Especialização para true
+template <>
+int runApp<true>(int argc, char** argv) {
+    return mainGraphicQtApp(argc, argv);
+}
+
+// Especialização para false
+template <>
+int runApp<false>(int argc, char** argv) {
+    return mainTerminalApp(argc, argv);
+}
+
 /**
  *  THIS IS THE GENESYS MAIN FUNCTION
  */
+int main(int argc, char** argv) {
+    return runApp<TraitsApp<GenesysApplication_if>::runGraphicalUserInterface>(argc, argv);
+}
+
+
+/**
+ *  THIS IS THE GENESYS MAIN FUNCTION
+
 int main(int argc, char *argv[]) {
-    if (TraitsApp<GenesysApplication_if>::runGraphicalUserInterface) {
+    if constexpr (TraitsApp<GenesysApplication_if>::runGraphicalUserInterface) {
 		return mainGraphicQtApp(argc, argv);
 	} else {
 		return mainTerminalApp(argc, argv);
 	}
 }
+*/
 

@@ -40,6 +40,7 @@ int Smart_DefaultModalModel::main(int argc, char** argv) {
     DefaultNode* node2 = plugins->newInstance<DefaultNode>(model);
     DefaultNode* node3 = plugins->newInstance<DefaultNode>(model);
     DefaultNode* node4 = plugins->newInstance<DefaultNode>(model);
+    /*
     dmm1->addNode(node1);
     dmm1->addNode(node2);
     dmm1->addNode(node3);
@@ -51,6 +52,7 @@ int Smart_DefaultModalModel::main(int argc, char** argv) {
     dmm1->addTransition(new DefaultNodeTransition(node3, node4));
     dmm1->addTransition(new DefaultNodeTransition(node4, node4));
     dmm1->addTransition(new DefaultNodeTransition(node4, node1));
+    */
     Dispose* dispose1 = plugins->newInstance<Dispose>(model);
     // connect model components to create a "workflow"
     create1->getConnectionManager()->insert(dmm1);

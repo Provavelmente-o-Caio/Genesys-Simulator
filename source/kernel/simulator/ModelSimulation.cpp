@@ -282,7 +282,7 @@ void ModelSimulation::_showSimulationHeader() {
 	}
 	responses = responses.substr(0, responses.length()-2);
 	if (this->_showSimulationResposesInReport) {
-		//if (TraitsKernel<SimulationReporter_if>::showSimulationResponses) {
+        //if constexpr (TraitsKernel<SimulationReporter_if>::showSimulationResponses) {
 		tm->traceReport("> Simulation responses: "+responses);
 	}
 	tm->traceReport("");

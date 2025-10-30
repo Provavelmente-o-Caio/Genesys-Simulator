@@ -23,6 +23,7 @@
 #include "../../plugins/components/CppForG.h"
 #include "../../plugins/components/Create.h"
 #include "../../plugins/components/Decide.h"
+#include "../../plugins/components/DefaultModalModel.h"
 #include "../../plugins/components/Delay.h"
 #include "../../plugins/components/DiffEquations.h"
 #include "../../plugins/components/Dispose.h"
@@ -139,6 +140,8 @@ StaticGetPluginInformation PluginConnectorDummyImpl1::_connectDiscrete(const std
         GetInfo = &Batch::GetPluginInformation;
     else if (fn == "clone.so")
         GetInfo = &Clone::GetPluginInformation;
+    else if (fn == "defaultmodalmodel.so")
+        GetInfo = &DefaultModalModel::GetPluginInformation;
     else if (fn == "decide.so")
         GetInfo = &Decide::GetPluginInformation;
     else if (fn == "delay.so")

@@ -205,6 +205,7 @@ SOURCES += \
     ../../../terminal/examples/smarts/Smart_HoldSearchRemove.cpp \
     ../../../terminal/examples/smarts/Smart_LSODE.cpp \
     ../../../terminal/examples/smarts/Smart_MarkovChain.cpp \
+    ../../../terminal/examples/smarts/Smart_Modalmodel.cpp \
     ../../../terminal/examples/smarts/Smart_ModelInfoModelSimulation.cpp \
     ../../../terminal/examples/smarts/Smart_ODE.cpp \
     ../../../terminal/examples/smarts/Smart_OnEvent.cpp \
@@ -498,6 +499,7 @@ HEADERS += \
     ../../../terminal/examples/smarts/Smart_HoldSearchRemove.h \
     ../../../terminal/examples/smarts/Smart_LSODE.h \
     ../../../terminal/examples/smarts/Smart_MarkovChain.h \
+    ../../../terminal/examples/smarts/Smart_Modalmodel.h \
     ../../../terminal/examples/smarts/Smart_ModelInfoModelSimulation.h \
     ../../../terminal/examples/smarts/Smart_ODE.h \
     ../../../terminal/examples/smarts/Smart_OnEvent.h \
