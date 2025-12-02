@@ -1,16 +1,20 @@
-FiniteMethods – visão de engenharia
+FiniteMethods 
 ==================================
+
+Componente 1.6: Componentes para modelagem e simulação de redes de componentes (nodos e transições em submodelos) - Componente para modelagem e simulação de elementos finitos.
+
+
 
 Objetivo
 - Simular difusão 1D com FEM linear (P1), coeficiente constante, malha uniforme, contornos Dirichlet, passos temporais explícitos, backward Euler ou Crank–Nicolson.
 
-Decisões de engenharia e desempenho
-- Malha uniforme 1D: a primeira dimensão da `Variable` define o número de nós; simplifica montagem e garante custo O(N).
-- Massa lumped: diagonaliza a matriz de massa, permitindo passo explícito O(N) e sistema tridiagonal leve para os modos implícitos.
-- Sistema tridiagonal: solver Thomas (`_solveTridiagonal`) com custo O(N) e baixo uso de memória.
-- Contornos Dirichlet: nós de fronteira preservados; contribuição incorporada no RHS para passos implícitos.
-- Estabilidade: modo explícito requer `alpha*dt/h^2` pequeno (p.ex. <= 0.5); modos implícitos são incondicionalmente estáveis.
-- Persistência/controle: propriedades expostas via `SimulationControlGeneric*` para integração com o kernel (field/time variables, alpha, h, dt, discretização/solver, arquivo de saída).
+Decisões simplificadas
+- Malha 1D uniforme: primeira dimensão de `Variable` é o número de nós; montagem e passos custam O(N).
+- Massa lumped: matriz de massa fica diagonal; passo explícito O(N); modo implícito vira um sistema tridiagonal pequeno.
+- Solver tridiagonal: Thomas (`_solveTridiagonal`) com O(N) e memória mínima.
+- Contorno Dirichlet: nós de fronteira fixos; para modos implícitos, a fronteira entra no RHS.
+- Estabilidade: explícito exige `alpha*dt/h^2 <= ~0.5`; implícitos são estáveis sem restrição.
+- Controle/integração: `SimulationControlGeneric*` expõe variáveis de campo/tempo, alpha, h, dt, escolha de discretização/solver e arquivo de saída.
 
 Desenho (simplificado)
 ```
