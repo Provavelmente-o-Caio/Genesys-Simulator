@@ -17,6 +17,7 @@
 #include "examples/smarts/Smart_DefaultModalModel.h"
 #include "examples/smarts/Smart_SeizeDelayRelease.h"
 #include "examples/smarts/Smart_SeizeDelayReleaseMany.h"
+#include "examples/smarts/Smart_FiniteMethods.h"
 
 template <typename T>
 struct TraitsTerminalApp {
@@ -57,7 +58,7 @@ template <> struct TraitsTerminalApp<GenesysApplication_if> {
 	//typedef Smart_RouteStation Application;
     //typedef Smart_SeizeDelayRelease Application;
 	//typedef Smart_SeizeDelayReleaseNoDataDefs Application;
-    typedef Smart_SeizeDelayReleaseMany Application;
+    typedef Smart_FiniteMethods Application;
 	//typedef Smart_Sequence Application;
 	//typedef Smart_SynchronizingParallelEntities Application;
 	//typedef Smart_SimulationControlResponse Application;
@@ -135,4 +136,3 @@ template <> struct TraitsTerminalApp<GenesysApplication_if> {
     // UNDER DEVELOPMENT
 	//typedef TestingTerminalApp Application;
 };
-
